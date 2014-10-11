@@ -1,0 +1,6 @@
+# repo-wide ignores
+# ignore R outputs
+*.Rhistory
+*.R[dD]ata
+# org-publish
+/_site/
