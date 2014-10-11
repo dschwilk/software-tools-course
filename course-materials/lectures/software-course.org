@@ -1,5 +1,206 @@
+#+SETUPFILE: ../styles/SETUP_l2_slides.org
+#+TITLE: Software Tools:: Lectures
+#+AUTHOR: Dylan Schwilk
 * Text editors 
-* Version control
+:PROPERTIES:
+:EXPORT_FILE_NAME: 01-text-editors.pdf
+:END:
+** What is plain text?
+*** Computers store numbers
+- Computers store numbers in binary: 0100110 (38).
+- How to represent characters ("A", "f", "%")?
+\pause
+**** Simple idea: numeric code for each character.  Originated at Bell labs in 1960
+- ASCII: American Standard Code for Information Interchange
+- 7 bits (128 symbols).
+- On modern computers, stored in one byte with zero as first bit.
+- For example: ``A'' = 01000001
+*** ASCII table
+**** 0--31 used for "unprintable" characters (BEEP! page feed, etc).
+  #+ATTR_LaTeX: :width 0.9\textwidth 
+  [[file:images/800px-ASCII_Code_Chart.png]]
+*** All was good
+Assuming you were an English speaker.
+**** Solution: Extended ASCII
+- We have 8 bits!  What about codes 128--255?
+- IBM-PC: The "OEM" character set:  European accented characters and drawing characters.
+- But everyone had a different idea of what to do with the upper codes.
+*** ANSI standard
+- Same as ASCII for 0-127
+- But different "code pages" for upper set
+**** So everything was crazy but ok
+As long as you spoke a western language.
+
+In Asia, there was a whole other mess using a mixture of one and two-byte characters.
+*** Unicode
+Basic idea: two bytes.  Then expanded to more (up to 3 bytes) Enough to store every character in every language.
+  - Originally: \(2^{14} = 16,384\)   (2 bits reserved)
+  - Currently: 110,182 code points
+  - Every letter maps to a "code point" --- a platonic ideal of a character.
+  - "A" is different from "a", but "A" in Times New Roman is the same as "A" in Arial
+  - For example:
+      :"Hello" = U+0048 U+0065 U+006C U+006C U+006F
+  - Still the issue of exactly how to STORE the numbers
+
+*** Encodings
+There were multiple standards for STORING the numbers.  Original, UCS-2, uses 2  bytes.
+Americans were lazy, so:
+**** UTF-8
+:PROPERTIES:
+:BEAMER_act <+->
+:END:
+- Idea: use one byte for code points 0-127, and only use two for points above that.
+- UTF-8 is the de facto standard encoding for unicode on
+- Example, an email message header: src_text{Content-Type: text/plain; charset="UTF-8"}
+
+** Working with plain text
+*** Why you should love plain text
+:PROPERTIES:
+:BEAMER_act: [<+->]
+:END:
+- Portability. Linux, windows, mac, android, etc. STANDARD.
+- Easy to use (you have been using more difficult ways to edit words). Don't let a word processor get in you way when you just need to *write*
+- Related to above: keep content separate from formatting
+- Computers love plain text.  Programs are written in plain text.  Use one powerful text editing tool for everything you do. 
+*** Editor features
+- Syntax highlighting
+- Braces, parenthesis matching, automatic indenting
+- Ability to work with interpreters, shells
+- Spell checking
+*** Editors
+**** OS agnostic:
+- *Emacs* (GNU Emacs, carbon emacs, aquamacs, etc).  My favorite.  A text editor that includes its own programming language (Elisp).
+- For R code: RStudio (runs on Mac, Linux, Windows), vim, others
+**** Windows:
+- *notepad++*.  Nice and lightweight, does what you need. Rita uses this for R code.
+**** Mac
+- Textwrangler, BBedit
+** One editor to rule them all...Emacs
+*** Installing Emacs
+**** On linux
+~> sudo apt-get install emacs24~
+**** On Mac
+- OSX: aquamacs: http://aquamacs.org/
+*** Install Emacs on Windows 
+- go to http://ftp.gnu.org/gnu/windows/emacs/
+- Download emacs by right-clicking on either emacs-xx.x-bin-i386.tar.gz or emacs-xx.x-fullbin-i386.tar.gz. Install the latest version if you desire.
+- Extract to zip file to ~C:\Program Files\emacs~
+- Add shortcuts to the executable, set the $HOME environment variable(My computer ... Properties ... Advanced
+- You will need to learn about environment variables so that emacs can find R, etc.
+*** My Emacs starter setup
+- Emacs is highly customizable.  On startup it reads an initialization file (~/.emacs.d/init.el) (older but deprecated location was ~/.emacs)
+- I have a very extensive configuration that sets up emacs for coding in R, Python, C, C++; for writing LaTeX files and making presentations using LaTeX+Beamer, for organizing my life in org-mode, etc.
+- I have written a paired-down set of initialization files called "schwilk-emacs-starter"
+- Another option is Kieren Healy's emacs starter (optimized for Mac): http://kieranhealy.org/resources/emacs-starter-kit.html
+*** Installing schwilk-emacs-starter
+- go to https://github.com/dschwilk/schwilk-emacs-starter
+- read the README.md file
+- Download to your .emacs.d directory (~/.emacs.d, or ~$HOME\.emacs.d\~)
+- Learn what I mean by "~" and ~$HOME~ !
+*** Some features and departures from defaults
+Note that some things are different than the documentation you will find online:
+- A nice dark color theme
+- Works great as an IDE for R (shift-enter starts an R session, *ESS*
+- Basic support for org-mode (outline files, *org-mode*)
+- Uses windows cut-copy-paste keys (*cua-mode*). I have mixed feelings about this. Although I came from a windoze background, I have switched to the emacs way (but I still use C-c, C-x, C-v in KDE
+** Learning Emacs
+*** Learning Emacs according to Sacha Chua
+#+ATTR_LaTeX: :width 0.9\textwidth 
+[[file:images/sacha_chua-emacs.png]]
+*** Frames, windows and buffers
+- Frame: what we call a "window" on modern operating systems (KDE, gnome, OS10, Microsoft)
+- Window: what we would call a "panel" or even a "frame".  A subdivided part of the emacs frame.
+- Buffer: the name associated with the contents of a window.  Unlike in other text editors, this could be a file, a text process, an interpreter (R, Python, bash shell, etc)
+#+BEAMER: \pause{}
+*** Keys
+- C-x, M-x:  Control and "meta" (alt) key combinations. M-x: Means "alt" (or esc)  then "x"
+- Access any elisp function via "M-x" then function name
+- tab does auto-complete
+*** Basic commands
+| Visiting (opening) and saving files:     | C-x C-f and C-x C-s   |
+| Switching between buffers:               | C-x b and C-x C-b     |
+| To set the region by keyboard:           | C-SPC                 |
+| Killing (cutting) and yanking (pasting): | C-w, C-k, C-y, M-y    |
+| Searching forwards and backwards:        | C-s, C-r              |
+| Invoking commands by name:               | M-x                   |
+| Undo:                                    | C-/                   |
+| Canceling half-entered commands:         | C-g                   |
+| Getting help                             | C-h (+ m, k, f, or a) |
+| Quitting Emacs:                          | C-x C-c               |
+** So what can I do?
+*** Work in R
+- Emacs knows about R syntax
+- Use shift-enter to start up R
+#+ATTR_LaTeX: :width \textwidth 
+[[file:images/ess-example.png]]
+*** org-mode
+    "Org is a mode for keeping notes, maintaining TODO lists, and doing project planning with a fast and effective plain-text system. " - [[http://orgmode.org/manual/Summary.html]]
+**** org-mode is
+- an outline extension with visibility cycling and structure editing
+- an ASCII system and table editor for taking structured notes
+- a TODO list editor
+- a full agenda and planner with deadlines and work scheduling
+- a simple hypertext system, with HTML and LaTeX export
+- an environment for literate programming
+*** org-mode outlines
+Folding outlines and lists:
+
+[[file:images/org-mode-example1.png]]
+*** org-mode examples
+- Outlines
+- Adding tasks
+- Agenda view
+- Exporting to HTML or LaTeX
+* Version Control
+** What is version control?
+*** Why use version control?
+**** You already use some sort of version control
+- File naming schemes (/eg/ ~my-file-July18-2013.doc~) or by copying folders around
+- Simple but error-prone
+- Does not help with branching, collaboration
+
+\pause
+**** A version control system (VCS) allows you to:
+- revert files back to a previous state
+- revert the entire project back to a previous state
+- review changes made over time
+- see who last modified something that might be causing a problem, who introduced an issue and when
+
+*** Local version control systems (VCS)
+#+ATTR_LaTeX: :width 0.5\textwidth
+[[file:images/local-vc.png]]
+see http://git-scm.com/book/
+*** Centralized VCS
+#+ATTR_LaTeX: :width 0.5\textwidth
+[[file:central-vc.png]]
+
+*** Distributed VCS
+#+ATTR_LaTeX: :width 0.5\textwidth
+[[file:distributed-vc.png]]
+
+** git
+*** git: distributed version control
+*** git states
+*** git states                                                      :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+[[file:git-states.png]]
+*** git commands                                                    :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+ - git init
+ - git add
+ - git status
+ - git log
+ - git commit
+** Learning git 
+*** Learning git
+Check out [[http://git-scm.com/book/en][the git book]]
+
+
+
 * ssh and rsync
 * emacs
 * org-mode
