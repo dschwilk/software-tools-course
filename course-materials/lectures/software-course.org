@@ -76,6 +76,106 @@ Americans were lazy, so:
 **** Mac
 - Textwrangler, BBedit
 ** One editor to rule them all...Emacs
+*** Why use Emacs? Availability
+- All platforms, operating systems
+- Will Always Exist (cue music)
+- Open source and free
+*** Why use Emacs? Best tools
+- Emacs has "major modes" for most computer languages and types of files
+- Powerful text management tools:
+  - Compare (=diff=) documents or buffers
+  - Regular expressions
+  - Can deal with rectangular text (columns, tables)
+- Can handle very large files
+** Basics and terminology
+*** Start Emacs
+[[file:images/emacs-simple-start.png]]
+
+1: Menus, 2: Toolbar, 3: Buffer, 4: Mode line (status bar), 5: Mini buffer  
+*** Frames, windows and buffers
+- Frame :: What we call a "window" on a modern operating system. One instance can control multiple frames. Try =File -> New Frame=
+- Window :: What we would call a "panel." A subdivided part of an Emacs "frame". A way to view multiple buffers at once (eg R code and R console). Try =File -> Split Window=
+- Buffer :: A name associated with the contents of a window. Can be the contents of a file, a process, an interpreter. Try =Buffers -> ...=
+*** Emacs "Major Modes"
+- Emacs can customize itself based on the language you are working in
+- R code will look different (font colors, comments etc) from Python from Markdown.
+- Emacs will guess the mode from the file extension (eg =.R=), or you can specify mode: Type Alt-x, release, then type valid mode name
+*** Emacs key board commands
+**** Emacs was created in the days before
+- Mice
+- Windowing desktop environments
+- Microsoft windows or Macs existed.
+**** Everything can be done from keyboard
+- C :: Control key
+- S :: Shift key
+- M :: Meta key (usually "Alt")
+
+*** Keyboard nomenclature
+ 
+- "C-x g" :: hold Control while typing "x", release, then type "g"
+- "M-x"  :: Hold down Alt then hit "x".  This brings you to mini-buffer to type longer commands
+- "C-c C-c" :: Hold down Control while typing "c" then do that again.
+
+*** That seems complicated!
+So you don't have to use those keys if you don't want to!
+
+- The keyboard commands are featured in most Emacs tutorials. And that may scare folks away.
+- I have a "cheat sheet" of commands taped on the wall next to my computer
+- But you can always use the pull down menus and still do more than with any other editor.
+*** Just use the menus and keys you are used to
+**** Select all:
+- =Edit -> Select All= vs "C-x h"
+
+**** End of buffer:
+- "page down" key a few times vs "M->" (Alt, Shift, greater than)
+
+**** Moving by character:
+- arrow keys, "home", "end" vs "C-f", "C-b", "C-n", "C-p", "C-a", "C-e"
+
+*** One problem:
+**** You are probably used to MS or Mac cut-copy-paste
+| keystroke | result |
+|-----------+--------|
+| C-x       | cut    |
+| C-c       | copy   |
+| C-v       | paste  |
+| C-z       | undo   | 
+**** But Emacs defaults:
+| keystroke | result         |
+|-----------+----------------|
+| C-w       | cut ("wipe")   |
+| M-w       | copy           |
+| C-y       | paste ("yank") |
+| C-/       | undo           |
+*** Easily fixed
+Turn on "CUA mode", multiple ways:
+
+- =Options -> CUA
+- "M-x cua-mode"
+- Add following to emacs startup:  =(cua-mode t)=
+
+Watch out: This overrides some basic Emacs keyboard functionality.  For example, you must turn this off for the built-in Emacs tutorial!
+*** Customizing Emacs
+- Emacs is an editor built on top of an entire programming language (Emacs lisp).
+- When emacs starts it reads a local configuration file (lisp code). Either: =~/.emacs= or =~/.emacs.d/init.el=
+*** Some shortcuts you *should* use
+
+- "M-x" :: execute command in minibufer --- this gives you access to every lisp function
+- "C-g" :: Quit.  Exits a function, exits mini- buffer. Useful if you get stuck 
+- "C-s" :: Forward search".  I use this very frequently
+- "M-% :: Query replace
+- "C-M-%" :: Regular expression query replace
+- "M-q" :: Rewrap paragraph (does right thing for code comments
+- "M-;" :: Comment or uncomment selected region. Knows which comment character to use.
+
+*** More on =M-x=
+- "M-x" gets the mini-buffer ready for a command
+- Tab completeion works, so just type first few letters
+***** Example: indent-region
+- Highlight text ("select region")
+- Type "M-x indent-region"
+- And emacs even reminds you of shortcut.
+** Installing Emacs
 *** Installing Emacs
 **** On linux
 ~> sudo apt-get install emacs24~
@@ -107,15 +207,6 @@ Note that some things are different than the documentation you will find online:
 *** Learning Emacs according to Sacha Chua
 #+ATTR_LaTeX: :width 0.9\textwidth 
 [[file:images/sacha_chua-emacs.png]]
-*** Frames, windows and buffers
-- Frame: what we call a "window" on modern operating systems (KDE, gnome, OS10, Microsoft)
-- Window: what we would call a "panel" or even a "frame".  A subdivided part of the emacs frame.
-- Buffer: the name associated with the contents of a window.  Unlike in other text editors, this could be a file, a text process, an interpreter (R, Python, bash shell, etc)
-#+BEAMER: \pause{}
-*** Keys
-- C-x, M-x:  Control and "meta" (alt) key combinations. M-x: Means "alt" (or esc)  then "x"
-- Access any elisp function via "M-x" then function name
-- tab does auto-complete
 *** Basic commands
 | Visiting (opening) and saving files:     | C-x C-f and C-x C-s   |
 | Switching between buffers:               | C-x b and C-x C-b     |
