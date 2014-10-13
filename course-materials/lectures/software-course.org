@@ -1,10 +1,34 @@
 #+SETUPFILE: ../styles/SETUP_l2_slides.org
 #+TITLE: Software Tools:: Lectures
 #+AUTHOR: Dylan Schwilk
-* Text editors 
+* Plain text
 :PROPERTIES:
 :EXPORT_FILE_NAME: 01-text-editors.pdf
 :END:
+** Why plain text?
+*** Our main goals as scientists
+To make our research as reproducible and visible as possible
+\pause
+**** This entails:
+- Sharing of code
+- Sharing of data (if possible and not proprietary nor privacy sensitive)
+- Sharing of output (presentation, article, website)
+*** The power of plain text
+- Ubiquitous
+- Usually small in size
+- Portable across platforms (and versions)
+\pause
+**** It is scriptable (both as input as output). 
+Code is almost always in text format usually data is in text format as well but underlying format for output (presentation, website, tables, articles, books) can be text as well.
+*** Manipulation of text
+Most output is based on simple text file. There are two main final formats: HTML and PDF.  One is pageless and one is centered on the idea of the printed page.
+**** This formatting requires markup-languages
+- HTML and CSS
+- LaTeX
+- Markdown
+
+And others (ReST, org-mode, etc)
+
 ** What is plain text?
 *** Computers store numbers
 - Computers store numbers in binary: 0100110 (38).
@@ -50,32 +74,38 @@ Americans were lazy, so:
 :BEAMER_act <+->
 :END:
 - Idea: use one byte for code points 0-127, and only use two for points above that.
-- UTF-8 is the de facto standard encoding for unicode on
-- Example, an email message header: src_text{Content-Type: text/plain; charset="UTF-8"}
+- UTF-8 is the de facto standard encoding for unicode.
+- Example, an email message header: =Content-Type: text/plain; charset="UTF-8"=
 
 ** Working with plain text
 *** Why you should love plain text
 :PROPERTIES:
 :BEAMER_act: [<+->]
 :END:
-- Portability. Linux, windows, mac, android, etc. STANDARD.
-- Easy to use (you have been using more difficult ways to edit words). Don't let a word processor get in you way when you just need to *write*
-- Related to above: keep content separate from formatting
-- Computers love plain text.  Programs are written in plain text.  Use one powerful text editing tool for everything you do. 
-*** Editor features
+- Portability. Linux, Windows, Mac, Android, etc. *Standard*.
+- Easy to use. Don't let a word processor get in you way when you just need to *write*
+- Keep content separate from formatting
+- Computers love plain text.  Programs are written in plain text.  Use one powerful text editing tool for everything you do.
+- Version control: VC systems work best on text files (eg git)
+*** What you want in a text editor
 - Syntax highlighting
 - Braces, parenthesis matching, automatic indenting
 - Ability to work with interpreters, shells
 - Spell checking
+
+\pause
+And some other things you did not know you wanted: TODOs and outlining modes, exporting to HTML or PDF, web browsing, email ...
 *** Editors
 **** OS agnostic:
-- *Emacs* (GNU Emacs, carbon emacs, aquamacs, etc).  My favorite.  A text editor that includes its own programming language (Elisp).
-- For R code: RStudio (runs on Mac, Linux, Windows), vim, others
+- *Emacs* My favorite.  A text editor that includes its own programming language (Elisp).
+- For R code: RStudio (runs on Mac, Linux, Windows)
 **** Windows:
-- *notepad++*.  Nice and lightweight, does what you need. Rita uses this for R code.
+- *notepad++*.  Nice and lightweight, does what you need. Can syntax highlight R code
 **** Mac
 - Textwrangler, BBedit
-** One editor to rule them all...Emacs
+** Emacs
+*** Emacs
+One editor to rule them all.
 *** Why use Emacs? Availability
 - All platforms, operating systems
 - Will Always Exist (cue music)
@@ -87,11 +117,14 @@ Americans were lazy, so:
   - Regular expressions
   - Can deal with rectangular text (columns, tables)
 - Can handle very large files
-** Basics and terminology
+** Basics
 *** Start Emacs
 [[file:images/emacs-simple-start.png]]
 
 1: Menus, 2: Toolbar, 3: Buffer, 4: Mode line (status bar), 5: Mini buffer  
+*** What I see:
+[[file:images/emacs-schwilk-start.png]]
+
 *** Frames, windows and buffers
 - Frame :: What we call a "window" on a modern operating system. One instance can control multiple frames. Try =File -> New Frame=
 - Window :: What we would call a "panel." A subdivided part of an Emacs "frame". A way to view multiple buffers at once (eg R code and R console). Try =File -> Split Window=
@@ -105,6 +138,8 @@ Americans were lazy, so:
 - Mice
 - Windowing desktop environments
 - Microsoft windows or Macs existed.
+
+\pause
 **** Everything can be done from keyboard
 - C :: Control key
 - S :: Shift key
@@ -116,7 +151,7 @@ Americans were lazy, so:
 - "M-x"  :: Hold down Alt then hit "x".  This brings you to mini-buffer to type longer commands
 - "C-c C-c" :: Hold down Control while typing "c" then do that again.
 
-*** That seems complicated!
+*** That seems complicated
 So you don't have to use those keys if you don't want to!
 
 - The keyboard commands are featured in most Emacs tutorials. And that may scare folks away.
@@ -124,13 +159,13 @@ So you don't have to use those keys if you don't want to!
 - But you can always use the pull down menus and still do more than with any other editor.
 *** Just use the menus and keys you are used to
 **** Select all:
-- =Edit -> Select All= vs "C-x h"
-
+=Edit -> Select All= vs "C-x h"
+\pause
 **** End of buffer:
-- "page down" key a few times vs "M->" (Alt, Shift, greater than)
-
+"page down" key a few times vs "M->" (Alt, Shift, greater than)
+\pause
 **** Moving by character:
-- arrow keys, "home", "end" vs "C-f", "C-b", "C-n", "C-p", "C-a", "C-e"
+arrow keys, "home", "end" vs "C-f", "C-b", "C-n", "C-p", "C-a", "C-e"
 
 *** One problem:
 **** You are probably used to MS or Mac cut-copy-paste
@@ -139,7 +174,9 @@ So you don't have to use those keys if you don't want to!
 | C-x       | cut    |
 | C-c       | copy   |
 | C-v       | paste  |
-| C-z       | undo   | 
+| C-z       | undo   |
+
+\pause
 **** But Emacs defaults:
 | keystroke | result         |
 |-----------+----------------|
@@ -147,10 +184,11 @@ So you don't have to use those keys if you don't want to!
 | M-w       | copy           |
 | C-y       | paste ("yank") |
 | C-/       | undo           |
+
 *** Easily fixed
 Turn on "CUA mode", multiple ways:
 
-- =Options -> CUA
+- =Options -> CUA=
 - "M-x cua-mode"
 - Add following to emacs startup:  =(cua-mode t)=
 
@@ -160,22 +198,24 @@ Watch out: This overrides some basic Emacs keyboard functionality.  For example,
 - When emacs starts it reads a local configuration file (lisp code). Either: =~/.emacs= or =~/.emacs.d/init.el=
 *** Some shortcuts you *should* use
 
-- "M-x" :: execute command in minibufer --- this gives you access to every lisp function
-- "C-g" :: Quit.  Exits a function, exits mini- buffer. Useful if you get stuck 
-- "C-s" :: Forward search".  I use this very frequently
-- "M-% :: Query replace
-- "C-M-%" :: Regular expression query replace
-- "M-q" :: Rewrap paragraph (does right thing for code comments
-- "M-;" :: Comment or uncomment selected region. Knows which comment character to use.
+- M-x :: execute command in minibufer --- this gives you access to every lisp function
+- C-g :: Quit.  Exits a function, exits mini-buffer. Useful if you get stuck 
+- C-s :: Forward search.  I use this very frequently
+- M-% :: Query replace
+- C-M-% :: Regular expression query replace
+- M-q :: Rewrap paragraph (does right thing for code comments)
+- M-; :: Comment or uncomment selected region; knows which comment character to use
 
 *** More on =M-x=
 - "M-x" gets the mini-buffer ready for a command
 - Tab completeion works, so just type first few letters
+
+\pause
 ***** Example: indent-region
 - Highlight text ("select region")
 - Type "M-x indent-region"
 - And emacs even reminds you of shortcut.
-** Installing Emacs
+** Installing
 *** Installing Emacs
 **** On linux
 ~> sudo apt-get install emacs24~
@@ -183,31 +223,26 @@ Watch out: This overrides some basic Emacs keyboard functionality.  For example,
 - OSX: aquamacs: http://aquamacs.org/
 *** Install Emacs on Windows 
 - go to http://ftp.gnu.org/gnu/windows/emacs/
-- Download emacs by right-clicking on either emacs-xx.x-bin-i386.tar.gz or emacs-xx.x-fullbin-i386.tar.gz. Install the latest version if you desire.
+- Download emacs by right-clicking on either emacs-xx.x-bin-i386.tar.gz or emacs-xx.x-fullbin-i386.tar.gz.
 - Extract to zip file to ~C:\Program Files\emacs~
 - Add shortcuts to the executable, set the $HOME environment variable(My computer ... Properties ... Advanced
 - You will need to learn about environment variables so that emacs can find R, etc.
-*** My Emacs starter setup
-- Emacs is highly customizable.  On startup it reads an initialization file (~/.emacs.d/init.el) (older but deprecated location was ~/.emacs)
-- I have a very extensive configuration that sets up emacs for coding in R, Python, C, C++; for writing LaTeX files and making presentations using LaTeX+Beamer, for organizing my life in org-mode, etc.
-- I have written a paired-down set of initialization files called "schwilk-emacs-starter"
-- Another option is Kieren Healy's emacs starter (optimized for Mac): http://kieranhealy.org/resources/emacs-starter-kit.html
-*** Installing schwilk-emacs-starter
-- go to https://github.com/dschwilk/schwilk-emacs-starter
+*** Emacs configuraton
+- Emacs is highly customizable.  On startup it reads an initialization file (~/.emacs.d/init.el)
+- I have an extensive configuration that sets up emacs for coding in R, Python, C, C++; for writing LaTeX files and making presentations using LaTeX+Beamer, for organizing my life in org-mode, etc. See https://github.com/dschwilk/emacs-config
+- I have written a paired-down set of initialization files for you: https://github.com/schwilklab/emacs-starter
+*** Installing my emacs-starter
+- go to https://github.com/schwilklab/emacs-starter
 - read the README.md file
-- Download to your .emacs.d directory (~/.emacs.d, or ~$HOME\.emacs.d\~)
+- Download to your .emacs.d directory (=~/.emacs.d=, or =$HOME\.emacs.d\=)
 - Learn what I mean by "~" and ~$HOME~ !
 *** Some features and departures from defaults
-Note that some things are different than the documentation you will find online:
+Note that some things are different from the documentation you will find online:
 - A nice dark color theme
 - Works great as an IDE for R (shift-enter starts an R session, *ESS*
 - Basic support for org-mode (outline files, *org-mode*)
 - Uses windows cut-copy-paste keys (*cua-mode*). I have mixed feelings about this. Although I came from a windoze background, I have switched to the emacs way (but I still use C-c, C-x, C-v in KDE
-** Learning Emacs
-*** Learning Emacs according to Sacha Chua
-#+ATTR_LaTeX: :width 0.9\textwidth 
-[[file:images/sacha_chua-emacs.png]]
-*** Basic commands
+*** Basic commands                                               :noexport:
 | Visiting (opening) and saving files:     | C-x C-f and C-x C-s   |
 | Switching between buffers:               | C-x b and C-x C-b     |
 | To set the region by keyboard:           | C-SPC                 |
@@ -218,21 +253,291 @@ Note that some things are different than the documentation you will find online:
 | Canceling half-entered commands:         | C-g                   |
 | Getting help                             | C-h (+ m, k, f, or a) |
 | Quitting Emacs:                          | C-x C-c               |
-** So what can I do?
+* Markup languages
+:PROPERTIES:
+:EXPORT_FILE_NAME: 02-markup-languages.pdf
+:END:
+** Markup
+*** What is markup?
+- Even with unicode, plain text is, well, *plain*
+- How do we produce pretty formatted output?
+\pause
+**** With markup languages
+HTML (+CSS), LaTeX, Markdown, org-mode, RMarkdown, ReStructuredText.
+** LaTeX
+*** LaTeX
+- A set of macros around Tex, a markup language invented by Donald Knuth
+- A document preparation system and document markup language.
+- Defacto standard in academic publishing. Formulae used in HTML pages (e.g., Wikipedia)
+\pause
+**** But ...
+Notation is cumbersome. It is a "heavyweight" markup language. It is geared towards printed (pdf) output where pages matter (eg printed journal articles)
+*** A LaTeX example
+#+begin_src latex :results none :exports code
+\documentclass[12pt]{article}
+\begin{document}
+\section*{My Paper}
+I just discovered that:
+\begin{equation} e=mc^2 \end{equation}
+
+\begin{table}[h] \centering
+\caption{My table}
+\begin{tabular}{lrs}
+\toprule
+Left & right & center \\
+\midrule
+data & 0.01 & 2.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{document}
+#+end_src
+
+*** Result
+
+#+begin_src latex :exports none :file images/latex-example.pdf
+\pagecolor{white}
+\section*{My Paper}
+I just discovered that:
+
+\begin{equation}
+e=mc^2
+\end{equation}
+
+\begin{table}[h]
+\centering
+\caption{My table}
+\begin{tabular}{lrs}
+\toprule
+Left & right & center \\
+\midrule
+data & 0.01 & 2.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+#+end_src
+
+#+results:
+#+BEGIN_LaTeX
+[[file:images/latex-example.pdf]]
+#+END_LaTeX
+
+
+[[file:images/latex-example.pdf]]
+
+
+*** BibTeX
+A reference database format
+
+- Very versatile and very powerful (most other markup languages work with bibtex as well)
+- Free managers, such as bibdesk or mendeley, are now ubiquitous. See also jabbref.  You do not need or want Endnote!
+*** Bibtex entry
+
+#+begin_src latex :results silent :exports code
+@article{Schwilk+Ackerly-2001,
+  title={Flammability and serotiny as strategies: correlated evolution in pines},
+  author={Schwilk, Dylan W and Ackerly, David D},
+  journal={Oikos},
+  volume={94},
+  number={2},
+  pages={326--336},
+  year={2001},
+  publisher={Wiley Online Library}
+}
+#+end_src
+*** In Jabref
+http://jabref.sourceforge.net/
+
+[[file:images/jabref-example.png]]
+** Markdown
+*** Why Markdown?
+- Easy to learn http://daringfireball.net/projects/markdown/
+- Much more "lightweight" than  LaTeX
+\pause
+**** Purposes
+- LaTeX is for paper --- PDF
+- Markdown is for HTML (blogs, wikipedia) --- but sneakily uses some Latex when needed
+- But with pandoc (http://johnmacfarlane.net/pandoc/), Markdown is becoming language of choice among scientists
+- You can even export from markdown to MS Word to keep a collaborator happy.
+*** Markdown example
+#+begin_example
+
+## My Paper ##
+
+I just discovered that:
+
+$$e=mc^2$$
+
+### My Table ###
+
+| Left | right | center |
+|------|-------|--------|
+| data | 0.01  | 2.3    |
+
+#+end_example
+*** Which renders as
+
+[[file:images/markdown-simple-example.png]]
+
+*** Text markup
+
+#+begin_example
+*italic*, **bold**
+
+unordered list:
+- item 1
+- item 2
+- item 3
+
+Ordered list:
+1. item 1
+2. item 2
+3. item 3
+#+end_example
+*** Headings
+#+begin_example
+Heading1
+========
+
+# Heading1 #
+
+Heading2
+--------
+
+## Heading 2 ##
+
+### Heading 3 ###
+#+end_example
+*** Markdown links
+#+begin_example
+Links:
+
+http://daringfireball.net/projects/markdown/syntax
+[Markdown syntax](http://daringfireball.net/projects/markdown/syntax)
+[Markdown syntax][mkdn]
+
+[mkdn]: http://daringfireball.net/projects/markdown/syntax
+#+end_example
+*** Markdown math
+Just use LateX math!
+
+#+name: latex-math
+#+begin_src latex :exports both
+$$\frac{n!}{k!(n-k)!} = \binom{n}{k}$$
+#+end_src
+
+
+**** Which renders as:
+#+results: latex-math
+#+BEGIN_LaTeX
+$$\frac{n!}{k!(n-k)!} = \binom{n}{k}$$
+#+END_LaTeX
+
+*** Markdown math
+Inline equations just need single =$=
+
+#+name: latex-math2
+#+begin_src latex
+In economics, it is well known that: 
+$\frac{d x}{d y} = -\frac{
+\partial u(x,y)/ \partial y} {
+\partial u(x,y)/ \partial x}$.
+#+end_src
+
+**** Which renders as
+
+#+results: latex-math2
+#+BEGIN_LaTeX
+In economics, it is well known that: 
+$\frac{d x}{d y} = -\frac{
+\partial u(x,y)/ \partial y} {
+\partial u(x,y)/ \partial x}$.
+#+END_LaTeX
+
+** Pandoc
+*** Pandoc
+So how do we glue everything together and produce wonderful htmls and pdfs out of thin air? 
+
+\pause
+With pandoc: http://johnmacfarlane.net/pandoc/
+\pause
+**** pandoc
+- Pandoc can convert from :: markdown, LaTeX, HTML, DocBook, Org-mode, and ... Microsoft Word .docx
+- To :: HTML formats (including HTML(5) slides), via Latex to pdf, MS Word (but support somewhat limited) and OpenOffice formats, various markup formats, and much more
+** Scientific workflow
+
+* Emacs: R and reproducible research
+:PROPERTIES:
+:EXPORT_FILE_NAME: 03-emacs-R.pdf
+:END:
+** R in Emacs
 *** Work in R
 - Emacs knows about R syntax
-- Use shift-enter to start up R
+- Use shift-enter to start up R (or =M-x R=)
+- Shift-enter sends one line of code to R, =C-c M-r= sends the region
 #+ATTR_LaTeX: :width \textwidth 
 [[file:images/ess-example.png]]
-*** org-mode
-    "Org is a mode for keeping notes, maintaining TODO lists, and doing project planning with a fast and effective plain-text system. " - [[http://orgmode.org/manual/Summary.html]]
+*** Moving around
+- C-M-a :: ess-beginning-of-function
+- C-M-e :: ess-end-of-function
+*** Comments and indentation
+- comment-region (C-c ;)
+- M-x indent-region
+
+Indenting should just work as you type.
+*** What can I do in R?
+- Run commands as normal.
+- TAB Completion of functions, objects, filenames.
+- At the prompt, recall history:
+  - keybinding function
+  - M-p (or C-up) previous input
+  - M-n (or C-down) next input
+  - M-r comint-previous-matching-input
+
+And look at ESS menu
+** Reproducible research
+*** Literate programming and reproducible research
+Combine text and code
+
+- knitr :: http://yihui.name/knitr/. R package. Mix text and code and "knit" to output.  Can work with LaTeX (*.rnw files) and with RMarkdown (*.Rmd). Can work with emacs or with RStudio
+- org-mode :: My favorite (but more emacs-specific). Can do a ton of stuff, including interspersing source code blocks, code output (including graphs) and text.
+
+*** RMarkdown and knitr
+=knitr= is an R package that can interpret .rnw files (LaTeX) or RMarkdown files (.Rmd) with R code blocks and "knit" them into LaTeX or markdown (.md) files that can be processed to html, pdf, etc (eg with pandoc)
+*** RMarkdown example:
+#+begin_example
+RMarkdown example
+=================
+
+## some code
+```{r mpg-data-plot, fig.width=4, fig.height=4}
+
+library(ggplot2)
+qplot(displ, hwy, data=mpg)
+
+```
+# Another heading
+Some data:
+```{r}
+head(mpg)
+```
+#+end_example
+*** Result:
+#+ATTR_LaTeX: :width 0.65\textwidth
+[[file:images/rmarkdown-example.png]]
+*** Text and code in org-mode
+TODO
+* Emacs: org-mode
+** What is org-mode?
+*** What is org-mode?
+"Org is a mode for keeping notes, maintaining TODO lists, and doing project planning with a fast and effective plain-text system. " - [[http://orgmode.org/manual/Summary.html]]
 **** org-mode is
 - an outline extension with visibility cycling and structure editing
-- an ASCII system and table editor for taking structured notes
+- an plain text system and table editor for taking structured notes
 - a TODO list editor
 - a full agenda and planner with deadlines and work scheduling
-- a simple hypertext system, with HTML and LaTeX export
-- an environment for literate programming
+- a hypertext system, with HTML and LaTeX export
+- an environment for literate programming with code blocks an manipulation of code outputs
 *** org-mode outlines
 Folding outlines and lists:
 
@@ -290,8 +595,5 @@ see http://git-scm.com/book/
 *** Learning git
 Check out [[http://git-scm.com/book/en][the git book]]
 
-
-
 * ssh and rsync
-* emacs
-* org-mode
+
