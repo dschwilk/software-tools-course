@@ -619,21 +619,21 @@ Folding outlines and lists:
 see http://git-scm.com/book/
 *** Centralized VCS
 #+ATTR_LaTeX: :width 0.5\textwidth
-[[file:central-vc.png]]
+[[file:images/central-vc.png]]
 
 *** Distributed VCS
 #+ATTR_LaTeX: :width 0.5\textwidth
-[[file:distributed-vc.png]]
+[[file:images/distributed-vc.png]]
 
 ** git
 *** git: distributed version control
-*** git states
-*** git states                                                      :BMCOL:
+**** git states                                                    :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.6
 :END:
-[[file:git-states.png]]
-*** git commands                                                    :BMCOL:
+#+ATTR_LaTeX: :width \textwidth
+[[file:images/git-states.png]]
+**** git commands                                                  :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.4
 :END:
@@ -643,8 +643,142 @@ see http://git-scm.com/book/
  - git log
  - git commit
 ** Learning git 
-*** Learning git
-Check out [[http://git-scm.com/book/en][the git book]]
+*** Getting started
+
+#+begin_example
+git config --global user.name "Dylan Schwilk"
+git config --global user.email "dylan@schwilk.org" 
+#+end_example
+*** Getting a "repo" (repository)
+
+Move to empty directory
+#+begin_example
+git init
+touch README.md
+#+end_example
+*** What happened?
+Hidden directory called =.git=
+\tiny
+#+begin_example
+.
+├── .git
+│   ├── branches
+│   ├── config
+│   ├── description
+│   ├── HEAD
+│   ├── hooks
+│   │   ├── applypatch-msg.sample
+│   │   ├── commit-msg.sample
+│   │   ├── post-update.sample
+│   │   ├── pre-applypatch.sample
+│   │   ├── pre-commit.sample
+│   │   ├── prepare-commit-msg.sample
+│   │   ├── pre-push.sample
+│   │   ├── pre-rebase.sample
+│   │   └── update.sample
+│   ├── info
+│   │   └── exclude
+│   ├── objects
+│   │   ├── info
+│   │   └── pack
+│   └── refs
+│       ├── heads
+│       └── tags
+└── README.md
+#+end_example
+*** Checking status
+
+#+begin_example
+git status
+#+end_example
+
+#+begin_example
+On branch master
+
+Initial commit
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        README.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+#+end_example
+*** Staging files
+
+#+begin_example
+git add .
+git status
+#+end_example
+
+#+begin_example
+On branch master
+
+Initial commit
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+        new file:   README.md
+#+end_example
+*** Committing changes
+#+begin_example
+git commit -m "initial commit"
+git status
+#+end_example
+
+#+begin_example
+On branch master
+nothing to commit, working directory clean
+#+end_example
+*** What exists now?
+[[file:images/git-filesystem2.png]]
+*** Clone repo
+\tiny
+#+begin_example
+git clone https://github.com/schwilklab/protocols.git
+cd protocols
+ls
+#+end_example
+
+#+begin_example
+chiller               conductance-protocol.md  field-work-checklist.md    README.md
+code                  data-management.md       gravimetric-soil-water.md  scripts
+computers-network.md  electrolyte-leakage.md   lab-business.md            stem-staining.md
+#+end_example
+*** A basic workflow
+- Edit files
+- Stage the changes (git add)
+- Review the changes (git diff)
+- Commit the changes (git commit)
+*** The git repository
+#+headers:  :file images/git-repo-diagram.png :fit yes
+#+headers: :imagemagick yes :iminoptions -density 1200 :imoutoptions -geometry 600
+#+begin_src latex :exports none :noweb yes :headers '("\\usepackage{tikz}")
+\begin{tikzpicture}[node distance=3cm, squarednode/.style={draw=gray, fill=green, thick, text centered, rounded corners, minimum width=3.5cm}]
+\definecolor{green}{RGB}{143,178,143} % #8fb28f
+\definecolor{orange}{HTML}{FFB272}
+\definecolor{yellow}{HTML}{F0DFAF}
+\definecolor{blue}{HTML}{8EF5E6}
+
+\node[squarednode]      (wd)      at (0, 2)                   {Working directory};
+\node[squarednode, fill=orange]      (index)   at (0, 1)      {Index (staging)};
+\node[squarednode, fill=blue]   (repo)  at (0,0)        {Repository};
+
+\path[->,thick, gray, text=yellow]  (wd.west) edge [out=180, in=180] node[left=0cm] {git add} (index.west) ;
+\path[->,thick, gray, text=yellow]  (index.east) edge [out=0, in=0] node[right=0cm] {git commit} (repo.east) ;
+\end{tikzpicture}
+#+end_src 
+
+#+results:
+#+BEGIN_LaTeX
+[[file:images/git-repo-diagram.png]]
+#+END_LaTeX
+
+#+ATTR_LaTeX: :width .6\textwidth
+[[file:images/git-repo-diagram.png]]
+
+
 
 * ssh and rsync
 
