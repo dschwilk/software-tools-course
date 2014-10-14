@@ -32,6 +32,7 @@
 #+LATEX_HEADER:   fancyvrb,
 #+LATEX_HEADER:   basewidth={0.5em,0.4em}
 #+LATEX_HEADER: }
+#+LATEX_HEADER: \usepackage{booktabs}
 #+COLUMNS: %45ITEM %10EXPORT_FILE_NAME(File) %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col)  %8BEAMER_opt(Opt)
 #+PROPERTY: BEAMER_col_ALL 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.0 :ETC
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../styles/schwilk-org.css" />
