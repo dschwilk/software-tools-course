@@ -241,7 +241,7 @@ Note that some things are different from the documentation you will find online:
 - A nice dark color theme
 - Works great as an IDE for R (shift-enter starts an R session, *ESS*
 - Basic support for org-mode (outline files, *org-mode*)
-- Uses windows cut-copy-paste keys (*cua-mode*). I have mixed feelings about this. Although I came from a windoze background, I have switched to the emacs way (but I still use C-c, C-x, C-v in KDE
+- Uses windows cut-copy-paste keys (*cua-mode*).
 *** Basic commands                                               :noexport:
 | Visiting (opening) and saving files:     | C-x C-f and C-x C-s   |
 | Switching between buffers:               | C-x b and C-x C-b     |
@@ -283,7 +283,7 @@ I just discovered that:
 \begin{table}[h] \centering
 \caption{My table}
 \begin{tabular}{lrs}
-\toprule
+\hline
 Left & right & center \\
 \midrule
 data & 0.01 & 2.3 \\
@@ -295,7 +295,7 @@ data & 0.01 & 2.3 \\
 
 *** Result
 
-#+begin_src latex :exports none :file images/latex-example.pdf
+#+begin_src latex :exports none :file images/latex-example.pdf :booktabs
 \pagecolor{white}
 \section*{My Paper}
 I just discovered that:
@@ -325,32 +325,17 @@ data & 0.01 & 2.3 \\
 
 [[file:images/latex-example.pdf]]
 
+*** It isn't as bad as it seems
+[[file:images/latex-example-emacs.png]]
 
-*** BibTeX
-A reference database format
+*** Ready for submission
+[[file:images/latex-paper-output.png]]
 
-- Very versatile and very powerful (most other markup languages work with bibtex as well)
-- Free managers, such as bibdesk or mendeley, are now ubiquitous. See also jabbref.  You do not need or want Endnote!
-*** Bibtex entry
-
-#+begin_src latex :results silent :exports code
-@article{Schwilk+Ackerly-2001,
-  title={Flammability and serotiny as strategies: correlated evolution in pines},
-  author={Schwilk, Dylan W and Ackerly, David D},
-  journal={Oikos},
-  volume={94},
-  number={2},
-  pages={326--336},
-  year={2001},
-  publisher={Wiley Online Library}
-}
-#+end_src
-*** In Jabref
-http://jabref.sourceforge.net/
-
-[[file:images/jabref-example.png]]
 ** Markdown
-*** Why Markdown?
+*** Still, LaTeX is cumbersome
+Alternatives?
+\pause
+**** Markdown
 - Easy to learn http://daringfireball.net/projects/markdown/
 - Much more "lightweight" than  LaTeX
 \pause
@@ -434,37 +419,103 @@ $$\frac{n!}{k!(n-k)!} = \binom{n}{k}$$
 #+END_LaTeX
 
 *** Markdown math
-Inline equations just need single =$=
+Inline equations just need a single =$=
 
 #+name: latex-math2
-#+begin_src latex
-In economics, it is well known that: 
-$\frac{d x}{d y} = -\frac{
-\partial u(x,y)/ \partial y} {
-\partial u(x,y)/ \partial x}$.
+#+begin_src latex :exports both
+In ecology, "true" species diversity is: 
+$ D_q = \frac{1}{\sqrt[q-1]{\sum_{i=1}^R{p_{i} p_{i}^{q-1}}}}
 #+end_src
 
 **** Which renders as
 
 #+results: latex-math2
 #+BEGIN_LaTeX
-In economics, it is well known that: 
-$\frac{d x}{d y} = -\frac{
-\partial u(x,y)/ \partial y} {
-\partial u(x,y)/ \partial x}$.
+In ecology, true species diversity is: 
+$ D_q = \frac{1}{\sqrt[q-1]{\sum_{=i=1}^R{p_{i} p_{i}^{q-1}} } }
 #+END_LaTeX
 
-** Pandoc
+** Managing references
+*** BibTeX
+A reference database format
+
+- Very versatile and very powerful (most other markup languages work with bibtex as well)
+- Free managers, such as bibdesk or mendeley, are now ubiquitous. See also jabbref.  You do not need or want Endnote!
+*** Bibtex entry
+
+#+begin_src latex :results silent :exports code
+@article{Schwilk+Ackerly-2001,
+  title={Flammability and serotiny as strategies: 
+         correlated evolution in pines},
+  author={Schwilk, Dylan W and Ackerly, David D},
+  journal={Oikos},
+  volume={94},
+  number={2},
+  pages={326--336},
+  year={2001},
+  publisher={Wiley Online Library}
+}
+#+end_src
+*** In Jabref
+http://jabref.sourceforge.net/
+
+[[file:images/jabref-example.png]]
+*** LaTeX and BibTeX example
+#+begin_src latex :results silent :exports code
+\section{Introduction} 
+Fire has been a powerful disturbance on the global
+landscape for hundreds of thousands of years,
+promoting traits in plants which confer an
+advantage in the presence of fire
+\cite{Keeley+Pausas+etal-2011,He+Pausas+etal-2012}.
+Understanding variation in fire response
+strategies both across and within fire regimes is
+a major goal of plant fire ecology
+\cite{Bond+vanWilgen-1996, Bellingham-2000,
+Schwilk+Ackerly-2001, Keeley+Pausas+etal-2011}.
+#+end_src
+*** Markdown and BibTeX example
+Requires pandoc markdown extensions.
+#+begin_example
+# Introduction #
+Fire has been a powerful disturbance on the global
+landscape for hundreds of thousands of years,
+promoting traits in plants which confer an
+advantage in the presence of fire
+[@Keeley+Pausas+etal-2011; @He+Pausas+etal-2012].
+Understanding variation in fire response
+strategies both across and within fire regimes is
+a major goal of plant fire ecology
+[@Bond+vanWilgen-1996; @Bellingham-2000;
+@Schwilk+Ackerly-2001; @Keeley+Pausas+etal-2011].
+#+end_example
+
+** Which markup to use?
+*** Which do I use and when:
+:PROPERTIES:
+:BEAMER_envargs: [<+->]
+:END:
+- Scientific papers :: LaTeX + BibTex. Outlining in org-mode first. I'm starting to use Markdown for some papers (easy conversion to MS word for collaborators).
+- Presentations :: LaTeX + Beamer when I need to control details of format, spacing, placement. Org-mode with export via LaTeX + Beamer otherwise. The source for this lecture is plain org-mode (similar to Markdown) 
+- Websites :: Markdown with html and css templates (jekyll, eg http://www.schwilk.org) or org-mode export (eg http://r-research-tool.schwilk.org/)
+- Documentation, notes, literate programming: org-mode or markdown
+
 *** Pandoc
 So how do we glue everything together and produce wonderful htmls and pdfs out of thin air? 
 
 \pause
 With pandoc: http://johnmacfarlane.net/pandoc/
 \pause
-**** pandoc
+***** pandoc
 - Pandoc can convert from :: markdown, LaTeX, HTML, DocBook, Org-mode, and ... Microsoft Word .docx
-- To :: HTML formats (including HTML(5) slides), via Latex to pdf, MS Word (but support somewhat limited) and OpenOffice formats, various markup formats, and much more
+- To :: HTML formats (including HTML5 slides), via Latex to pdf, MS Word (but support somewhat limited) and OpenOffice formats, various markup formats, and much more
+
 ** Scientific workflow
+*** An RMarkdown workflow
+Figure from Kieran Healy: http://kieranhealy.org/resources/
+
+ #+ATTR_LATEX: :width \textwidth
+[[file:images/Healy-workflow-wide.png]]
 
 * Emacs: R and reproducible research
 :PROPERTIES:
