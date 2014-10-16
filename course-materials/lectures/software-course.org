@@ -642,7 +642,6 @@ see http://git-scm.com/book/
  - git status
  - git log
  - git commit
-** Learning git 
 *** Getting started
 
 #+begin_example
@@ -752,18 +751,18 @@ computers-network.md  electrolyte-leakage.md   lab-business.md            stem-s
 - Review the changes (git diff)
 - Commit the changes (git commit)
 *** The git repository
-#+headers:  :file images/git-repo-diagram.png :fit yes
+#+headers:  :file plots/git-repo-diagram.png :fit yes
 #+headers: :imagemagick yes :iminoptions -density 1200 :imoutoptions -geometry 600
 #+begin_src latex :exports none :noweb yes :headers '("\\usepackage{tikz}")
-\begin{tikzpicture}[node distance=3cm, squarednode/.style={draw=gray, fill=green, thick, text centered, rounded corners, minimum width=3.5cm}]
+\begin{tikzpicture}[snode/.style={draw=gray, fill=green, thick, text centered, rounded corners, minimum width=3.5cm}]
 \definecolor{green}{RGB}{143,178,143} % #8fb28f
 \definecolor{orange}{HTML}{FFB272}
 \definecolor{yellow}{HTML}{F0DFAF}
 \definecolor{blue}{HTML}{8EF5E6}
 
-\node[squarednode]      (wd)      at (0, 2)                   {Working directory};
-\node[squarednode, fill=orange]      (index)   at (0, 1)      {Index (staging)};
-\node[squarednode, fill=blue]   (repo)  at (0,0)        {Repository};
+\node[snode]              (wd)    at (0, 2)  {Working directory};
+\node[snode, fill=orange] (index) at (0, 1)  {Index (staging)};
+\node[snode, fill=blue]   (repo)  at (0, 0)  {Repository};
 
 \path[->,thick, gray, text=yellow]  (wd.west) edge [out=180, in=180] node[left=0cm] {git add} (index.west) ;
 \path[->,thick, gray, text=yellow]  (index.east) edge [out=0, in=0] node[right=0cm] {git commit} (repo.east) ;
@@ -772,13 +771,16 @@ computers-network.md  electrolyte-leakage.md   lab-business.md            stem-s
 
 #+results:
 #+BEGIN_LaTeX
-[[file:images/git-repo-diagram.png]]
+[[file:plots/git-repo-diagram.png]]
 #+END_LaTeX
 
 #+ATTR_LaTeX: :width .6\textwidth
-[[file:images/git-repo-diagram.png]]
-
-
+[[file:plots/git-repo-diagram.png]]
+** Working smarter
+*** Branches
+*** Merge
+*** Merge vs rebase
+*** git and GitHub
 
 * ssh and rsync
 
