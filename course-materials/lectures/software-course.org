@@ -626,35 +626,20 @@ see http://git-scm.com/book/
 [[file:images/distributed-vc.png]]
 
 ** git
-*** git: distributed version control
-**** git states                                                    :BMCOL:
-:PROPERTIES:
-:BEAMER_col: 0.6
-:END:
-#+ATTR_LaTeX: :width \textwidth
-[[file:images/git-states.png]]
-**** git commands                                                  :BMCOL:
-:PROPERTIES:
-:BEAMER_col: 0.4
-:END:
- - git init
- - git add
- - git status
- - git log
- - git commit
 *** Getting started
 
-#+begin_example
+#+begin_src bash :eval no
 git config --global user.name "Dylan Schwilk"
 git config --global user.email "dylan@schwilk.org" 
-#+end_example
+#+end_src
+
 *** Getting a "repo" (repository)
 
 Move to empty directory
-#+begin_example
+#+begin_src bash :eval no
 git init
 touch README.md
-#+end_example
+#+end_src
 *** What happened?
 Hidden directory called =.git=
 \tiny
@@ -687,10 +672,11 @@ Hidden directory called =.git=
 #+end_example
 *** Checking status
 
-#+begin_example
+#+begin_src bash :eval no
 git status
-#+end_example
+#+end_src
 
+\tiny
 #+begin_example
 On branch master
 
@@ -703,12 +689,28 @@ Untracked files:
 
 nothing added to commit but untracked files present (use "git add" to track)
 #+end_example
-*** Staging files
+*** git commands
+**** git states                                                    :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+#+ATTR_LaTeX: :width \textwidth
+[[file:images/git-states.png]]
+**** git commands                                                  :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+ - git init
+ - git add
+ - git status
+ - git log
+ - git commit
+*** staging files
 
-#+begin_example
+#+begin_src bash :eval no
 git add .
 git status
-#+end_example
+#+end_src
 
 #+begin_example
 On branch master
@@ -721,24 +723,28 @@ Changes to be committed:
         new file:   README.md
 #+end_example
 *** Committing changes
-#+begin_example
+#+begin_src bash :eval no
 git commit -m "initial commit"
 git status
-#+end_example
+#+end_src
 
 #+begin_example
 On branch master
 nothing to commit, working directory clean
 #+end_example
+*** git commit
+A commit is a snapshot taken from the index (staging area) *not from the working directory*!
 *** What exists now?
+#+ATTR_LaTeX: :width 0.8\textwidth 
 [[file:images/git-filesystem2.png]]
+
 *** Clone repo
 \tiny
-#+begin_example
+#+begin_src bash :eval no
 git clone https://github.com/schwilklab/protocols.git
 cd protocols
 ls
-#+end_example
+#+end_src
 
 #+begin_example
 chiller               conductance-protocol.md  field-work-checklist.md    README.md
@@ -776,11 +782,164 @@ computers-network.md  electrolyte-leakage.md   lab-business.md            stem-s
 
 #+ATTR_LaTeX: :width .6\textwidth
 [[file:plots/git-repo-diagram.png]]
-** Working smarter
+*** git log
+#+begin_src bash :results output :exports both
+git log --pretty=oneline --abbrev-commit -10
+#+end_src
+
+#+results:
+#+begin_example
+038146d Add "plots" subdir to lectures
+237cebe Add slides to version control (git) lecture
+91476e4 Add examples to markup lecture
+b1b66ab Add \usepackage{booktabs} to style files
+ee949cd Add and expand lectures
+e18d611 Add content to lecture on Emacs
+366772c Add background to ASCII code chart figure
+e3de90e Add license text to README
+1c0e92f Add text editing lecture
+442f279 Add .gitignores
+#+end_example
+*** git diff
+- =git diff= :: difference between working directory and index (staging area)
+- =git diff --staged= :: difference between index and last commit 
+
+With right options, diff can show changes between any two commits, any two files, etc. 
+** Working with branches
 *** Branches
+A branch represents an independent line of development.
+
+*** Show and create branches
+**** Show
+#+begin_src bash :results output
+git branch
+#+end_src
+
+#+results:
+: * master
+
+**** Create
+#+begin_example
+git branch <newbranch>
+#+end_example
+
+**** Delete
+#+begin_example
+git branch -D <newbranch>
+#+end_example
+
+
+*** Using branches
+[[file:images/git-branch-diag.png]]
+
+*** Switch branches
+
+#+begin_example
+git checkout <existing-branch>
+#+end_example
+
 *** Merge
+Merging is Git's way of putting a branched history back together again. 
+**** Note:
+This merges *into* the current branch 
+
+#+begin_example
+git merge <branch>
+#+end_example
+*** Fast-forward merge
+#+ATTR_LATEX: :float :width 0.42\textwidth :center
+[[file:images/git-ff-merge.png]]
+*** Three-way merge
+#+ATTR_LATEX: :float :width 0.42\textwidth :center
+[[file:images/git-merge-3w.png]]
+*** Example fast-foward merge
+
+#+begin_src bash :eval no
+# Start a new feature
+git checkout -b new-feature master
+
+# Edit some files
+git add <file>
+git commit -m "Start a feature"
+
+# Edit some files
+git add <file>
+git commit -m "Finish a feature"
+
+# Merge in the new-feature branch
+git checkout master
+git merge new-feature
+git branch -d new-feature
+#+end_src
+
 *** Merge vs rebase
+** Working with remotes
+*** What is a "remote"
+- a version of the repository that hosted somewhere on the internet.
+- Remotes have a url (https or ssh), but the can also have names.
+- It is common to have only one remote at it is named "origin"
+\pause
+**** Why remotes
+Allow collaboration!
+
+*** GitHub
+
+We use GitHub for hosting, so most of of your local repos will be associated with a remote named "origin" and a url something like =git@github.com:schwilklab/CSC-sky-island-forest.git=
+
+*** Working with remotes
+When you clone from a remote, git remembers and calls that remote "origin". You can look at .git/config or, better use git commands to view:
+#+begin_src bash :results output :exports both
+git remote -v
+#+end_src
+
+#+results:
+: origin	git@github.com:dschwilk/software-tools-course.git (fetch)
+: origin	git@github.com:dschwilk/software-tools-course.git (push)
+
+*** Adding a remote
+If you need to add a remote to an existing repository:
+#+begin_src bash :eval no
+git remote add rem2 git@github.com:dschwilk/software-tools-course.git
+#+end_src
+
+*** Fetching and pulling
+
+**** fetch
+#+begin_src bash :eval no
+git fetch origin
+git fetch
+#+end_src
+
+This pulls the data to your local repository but doe not merge it.  It just means you have a local copy of the changes in the remote so that you *can* merge them.
+
+\pause
+
+**** pull
+#+begin_src bash :eval no
+git pull
+#+end_src
+
+Fetches data and then merges with your local repo.
+
+*** git push
+
+#+begin_example
+git push <remote> <branch name>
+eg: git push origin master
+or just: git push
+#+end_example
+
+This works if none else has pushed changes to that remote since you last pulled. If there is an error, you will need to pull (fetch and merge) first.
+
 *** git and GitHub
 
+** Advanced uses
+
+*** stage on portions of change
+#+begin_src bash :eval no
+git add -p
+#+end_src
+
+Interactively add changed "hunks".
 * ssh and rsync
 
