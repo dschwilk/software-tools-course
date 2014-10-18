@@ -1,7 +1,7 @@
 #+SETUPFILE: ../styles/SETUP_l2_slides.org
 #+TITLE: Software Tools:: Lectures
 #+AUTHOR: Dylan Schwilk
-* Plain text
+* Plain text and Emacs
 :PROPERTIES:
 :EXPORT_FILE_NAME: 01-text-editors.pdf
 :END:
@@ -95,14 +95,20 @@ Americans were lazy, so:
 
 \pause
 And some other things you did not know you wanted: TODOs and outlining modes, exporting to HTML or PDF, web browsing, email ...
-*** Editors
+*** Editors: free as in speech and beer
 **** OS agnostic:
-- *Emacs* My favorite.  A text editor that includes its own programming language (Elisp).
-- For R code: RStudio (runs on Mac, Linux, Windows)
+- *Emacs* My favorite.  Runs on everything, super powerful.
+- *Vim* The "other editor"
+- *atom*. By the github folks: https://atom.io/. New kid on the block
 **** Windows:
-- *notepad++*.  Nice and lightweight, does what you need. Can syntax highlight R code
+- *notepad++*. Lightweight editor. Can syntax highlight R code
 **** Mac
-- Textwrangler, BBedit
+- *textmate* (textmate2 is open source)
+
+*** Some non-free editors
+- SublimeText (all platforms)
+- TextWrangler and BBEdit (Mac)
+
 ** Emacs
 *** Emacs
 One editor to rule them all.
@@ -124,7 +130,8 @@ One editor to rule them all.
 1: Menus, 2: Toolbar, 3: Buffer, 4: Mode line (status bar), 5: Mini buffer  
 *** What I see:
 [[file:images/emacs-schwilk-start.png]]
-
+*** What you'll see if you use my student starter
+[[file:images/emacs-student-starter-start.png]]
 *** Frames, windows and buffers
 - Frame :: What we call a "window" on a modern operating system. One instance can control multiple frames. Try =File -> New Frame=
 - Window :: What we would call a "panel." A subdivided part of an Emacs "frame". A way to view multiple buffers at once (eg R code and R console). Try =File -> Split Window=
@@ -193,9 +200,6 @@ Turn on "CUA mode", multiple ways:
 - Add following to emacs startup:  =(cua-mode t)=
 
 Watch out: This overrides some basic Emacs keyboard functionality.  For example, you must turn this off for the built-in Emacs tutorial!
-*** Customizing Emacs
-- Emacs is an editor built on top of an entire programming language (Emacs lisp).
-- When emacs starts it reads a local configuration file (lisp code). Either: =~/.emacs= or =~/.emacs.d/init.el=
 *** Some shortcuts you *should* use
 
 - M-x :: execute command in minibufer --- this gives you access to every lisp function
@@ -227,21 +231,33 @@ Watch out: This overrides some basic Emacs keyboard functionality.  For example,
 - Extract to zip file to ~C:\Program Files\emacs~
 - Add shortcuts to the executable, set the $HOME environment variable(My computer ... Properties ... Advanced
 - You will need to learn about environment variables so that emacs can find R, etc.
-*** Emacs configuraton
+*** Customizing Emacs
 - Emacs is highly customizable.  On startup it reads an initialization file (~/.emacs.d/init.el)
-- I have an extensive configuration that sets up emacs for coding in R, Python, C, C++; for writing LaTeX files and making presentations using LaTeX+Beamer, for organizing my life in org-mode, etc. See https://github.com/dschwilk/emacs-config
-- I have written a paired-down set of initialization files for you: https://github.com/schwilklab/emacs-starter
-*** Installing my emacs-starter
+- I have written a set of initialization files for you: https://github.com/schwilklab/emacs-starter
+*** Installing my emacs student starter
 - go to https://github.com/schwilklab/emacs-starter
 - read the README.md file
 - Download to your .emacs.d directory (=~/.emacs.d=, or =$HOME\.emacs.d\=)
 - Learn what I mean by "~" and ~$HOME~ !
+*** Set up on linux
+#+begin_src bash :eval no
+cd ~
+git clone https://github.com/schwilklab/emacs-starter.git .emacs.d
+#+end_src
 *** Some features and departures from defaults
-Note that some things are different from the documentation you will find online:
-- A nice dark color theme
-- Works great as an IDE for R (shift-enter starts an R session, *ESS*
-- Basic support for org-mode (outline files, *org-mode*)
+Note that some things in my configuration are different from the documentation you will find online:
 - Uses windows cut-copy-paste keys (*cua-mode*).
+- A dark color theme ("schwilk" theme under options...customize emacs...custom themes)
+- IDE for R (shift-enter starts an R session, *ESS*
+- Basic support for org-mode (outline files, *org-mode*)
+*** Emacs escape hatch
+
+\huge
+=C-g=
+*** A poster for learning emacs
+http://sachachua.com/blog/2013/05/how-to-learn-emacs-a-hand-drawn-one-pager-for-beginners/
+#+ATTR_LaTeX: :width 0.9\textwidth
+[[file:images/sacha_chua-emacs.png]]
 *** Basic commands                                               :noexport:
 | Visiting (opening) and saving files:     | C-x C-f and C-x C-s   |
 | Switching between buffers:               | C-x b and C-x C-b     |
@@ -903,7 +919,6 @@ git remote add rem2 git@github.com:dschwilk/software-tools-course.git
 #+end_src
 
 *** Fetching and pulling
-
 **** fetch
 #+begin_src bash :eval no
 git fetch origin
