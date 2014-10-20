@@ -18,7 +18,7 @@ To make our research as reproducible and visible as possible
 - Usually small in size
 - Portable across platforms (and versions)
 \pause
-**** It is scriptable (both as input as output). 
+**** It is scriptable (both as input as output).
 Code is almost always in text format usually data is in text format as well but underlying format for output (presentation, website, tables, articles, books) can be text as well.
 *** Manipulation of text
 Most output is based on simple text file. There are two main final formats: HTML and PDF.  One is pageless and one is centered on the idea of the printed page.
@@ -41,7 +41,7 @@ And others (ReST, org-mode, etc)
 - For example: ``A'' = 01000001
 *** ASCII table
 **** 0--31 used for "unprintable" characters (BEEP! page feed, etc).
-  #+ATTR_LaTeX: :width 0.9\textwidth 
+  #+ATTR_LaTeX: :width 0.9\textwidth
   [[file:images/800px-ASCII_Code_Chart.png]]
 *** All was good
 Assuming you were an English speaker.
@@ -127,7 +127,7 @@ One editor to rule them all.
 *** Start Emacs
 [[file:images/emacs-simple-start.png]]
 
-1: Menus, 2: Toolbar, 3: Buffer, 4: Mode line (status bar), 5: Mini buffer  
+1: Menus, 2: Toolbar, 3: Buffer, 4: Mode line (status bar), 5: Mini buffer
 *** What I see:
 [[file:images/emacs-schwilk-start.png]]
 *** What you'll see if you use my student starter
@@ -153,7 +153,7 @@ One editor to rule them all.
 - M :: Meta key (usually "Alt")
 
 *** Keyboard nomenclature
- 
+
 - "C-x g" :: hold Control while typing "x", release, then type "g"
 - "M-x"  :: Hold down Alt then hit "x".  This brings you to mini-buffer to type longer commands
 - "C-c C-c" :: Hold down Control while typing "c" then do that again.
@@ -203,7 +203,7 @@ Watch out: This overrides some basic Emacs keyboard functionality.  For example,
 *** Some shortcuts you *should* use
 
 - M-x :: execute command in minibufer --- this gives you access to every lisp function
-- C-g :: Quit.  Exits a function, exits mini-buffer. Useful if you get stuck 
+- C-g :: Quit.  Exits a function, exits mini-buffer. Useful if you get stuck
 - C-s :: Forward search.  I use this very frequently
 - M-% :: Query replace
 - C-M-% :: Regular expression query replace
@@ -225,7 +225,7 @@ Watch out: This overrides some basic Emacs keyboard functionality.  For example,
 ~> sudo apt-get install emacs24~
 **** On Mac
 - OSX: aquamacs: http://aquamacs.org/
-*** Install Emacs on Windows 
+*** Install Emacs on Windows
 - go to http://ftp.gnu.org/gnu/windows/emacs/
 - Download emacs by right-clicking on either emacs-xx.x-bin-i386.tar.gz or emacs-xx.x-fullbin-i386.tar.gz.
 - Extract to zip file to ~C:\Program Files\emacs~
@@ -439,7 +439,7 @@ Inline equations just need a single =$=
 
 #+name: latex-math2
 #+begin_src latex :exports both
-In ecology, "true" species diversity is: 
+In ecology, "true" species diversity is:
 $ D_q = \frac{1}{\sqrt[q-1]{\sum_{i=1}^R{p_{i} p_{i}^{q-1}}}}
 #+end_src
 
@@ -447,7 +447,7 @@ $ D_q = \frac{1}{\sqrt[q-1]{\sum_{i=1}^R{p_{i} p_{i}^{q-1}}}}
 
 #+results: latex-math2
 #+BEGIN_LaTeX
-In ecology, true species diversity is: 
+In ecology, true species diversity is:
 $ D_q = \frac{1}{\sqrt[q-1]{\sum_{=i=1}^R{p_{i} p_{i}^{q-1}} } }
 #+END_LaTeX
 
@@ -461,7 +461,7 @@ A reference database format
 
 #+begin_src latex :results silent :exports code
 @article{Schwilk+Ackerly-2001,
-  title={Flammability and serotiny as strategies: 
+  title={Flammability and serotiny as strategies:
          correlated evolution in pines},
   author={Schwilk, Dylan W and Ackerly, David D},
   journal={Oikos},
@@ -478,7 +478,7 @@ http://jabref.sourceforge.net/
 [[file:images/jabref-example.png]]
 *** LaTeX and BibTeX example
 #+begin_src latex :results silent :exports code
-\section{Introduction} 
+\section{Introduction}
 Fire has been a powerful disturbance on the global
 landscape for hundreds of thousands of years,
 promoting traits in plants which confer an
@@ -512,12 +512,12 @@ a major goal of plant fire ecology
 :BEAMER_envargs: [<+->]
 :END:
 - Scientific papers :: LaTeX + BibTex. Outlining in org-mode first. I'm starting to use Markdown for some papers (easy conversion to MS word for collaborators).
-- Presentations :: LaTeX + Beamer when I need to control details of format, spacing, placement. Org-mode with export via LaTeX + Beamer otherwise. The source for this lecture is plain org-mode (similar to Markdown) 
+- Presentations :: LaTeX + Beamer when I need to control details of format, spacing, placement. Org-mode with export via LaTeX + Beamer otherwise. The source for this lecture is plain org-mode (similar to Markdown)
 - Websites :: Markdown with html and css templates (jekyll, eg http://www.schwilk.org) or org-mode export (eg http://r-research-tool.schwilk.org/)
 - Documentation, notes, literate programming: org-mode or markdown
 
 *** Pandoc
-So how do we glue everything together and produce wonderful htmls and pdfs out of thin air? 
+So how do we glue everything together and produce wonderful htmls and pdfs out of thin air?
 
 \pause
 With pandoc: http://johnmacfarlane.net/pandoc/
@@ -542,7 +542,7 @@ Figure from Kieran Healy: http://kieranhealy.org/resources/
 - Emacs knows about R syntax
 - Use shift-enter to start up R (or =M-x R=)
 - Shift-enter sends one line of code to R, =C-c M-r= sends the region
-#+ATTR_LaTeX: :width \textwidth 
+#+ATTR_LaTeX: :width \textwidth
 [[file:images/ess-example.png]]
 *** Moving around
 - C-M-a :: ess-beginning-of-function
@@ -595,6 +595,9 @@ head(mpg)
 *** Text and code in org-mode
 TODO
 * Emacs: org-mode
+:PROPERTIES:
+:EXPORT_FILE_NAME: 05-org-mode.pdf
+:END:
 ** What is org-mode?
 *** What is org-mode?
 "Org is a mode for keeping notes, maintaining TODO lists, and doing project planning with a fast and effective plain-text system. " - [[http://orgmode.org/manual/Summary.html]]
@@ -615,6 +618,9 @@ Folding outlines and lists:
 - Agenda view
 - Exporting to HTML or LaTeX
 * Version Control
+:PROPERTIES:
+:EXPORT_FILE_NAME: 05-version-control.pdf
+:END:
 ** What is version control?
 *** Why use version control?
 **** You already use some sort of version control
@@ -646,7 +652,7 @@ see http://git-scm.com/book/
 
 #+begin_src bash :eval no
 git config --global user.name "Dylan Schwilk"
-git config --global user.email "dylan@schwilk.org" 
+git config --global user.email "dylan@schwilk.org"
 #+end_src
 
 *** Getting a "repo" (repository)
@@ -751,7 +757,7 @@ nothing to commit, working directory clean
 *** git commit
 A commit is a snapshot taken from the index (staging area) *not from the working directory*!
 *** What exists now?
-#+ATTR_LaTeX: :width 0.8\textwidth 
+#+ATTR_LaTeX: :width 0.8\textwidth
 [[file:images/git-filesystem2.png]]
 
 *** Clone repo
@@ -789,7 +795,7 @@ computers-network.md  electrolyte-leakage.md   lab-business.md            stem-s
 \path[->,thick, gray, text=yellow]  (wd.west) edge [out=180, in=180] node[left=0cm] {git add} (index.west) ;
 \path[->,thick, gray, text=yellow]  (index.east) edge [out=0, in=0] node[right=0cm] {git commit} (repo.east) ;
 \end{tikzpicture}
-#+end_src 
+#+end_src
 
 #+results:
 #+BEGIN_LaTeX
@@ -818,9 +824,9 @@ e3de90e Add license text to README
 #+end_example
 *** git diff
 - =git diff= :: difference between working directory and index (staging area)
-- =git diff --staged= :: difference between index and last commit 
+- =git diff --staged= :: difference between index and last commit
 
-With right options, diff can show changes between any two commits, any two files, etc. 
+With right options, diff can show changes between any two commits, any two files, etc.
 ** Working with branches
 *** Branches
 A branch represents an independent line of development.
@@ -855,9 +861,9 @@ git checkout <existing-branch>
 #+end_example
 
 *** Merge
-Merging is Git's way of putting a branched history back together again. 
+Merging is Git's way of putting a branched history back together again.
 **** Note:
-This merges *into* the current branch 
+This merges *into* the current branch
 
 #+begin_example
 git merge <branch>
@@ -957,4 +963,78 @@ git add -p
 
 Interactively add changed "hunks".
 * ssh and rsync
+:PROPERTIES:
+:EXPORT_FILE_NAME: 06-encryption.pdf
+:END:
+** Encryption
+*** Why encryption?
+- I've been extolling the virtues of openness and sharing
+- So why do we need encryption?
+\pause
+**** Without encryption, you do not own your own hardware
+- Encryption is *necessary* to the most basic use of a computer.
+- Control what you share
+- Without encryption (and signing) you do not know what you are installing on your computer without reading 1000s of lines of code
+- The internet is central to our scientific, financial, political and personal lives. But without encryption, everything that passes over the internet is insecure
+*** The internet is a big open network
+And all information is subject to
+- Eavesdropping
+- Tampering
+- Impersonation (spoofing or misrepresentation)
+*** Encryption and decryption
+- Encryption :: transforming information so it is unintelligible to anyone but the intended recipient.
+- Decryption :: transformation back so it is intelligible again
+*** Modern encryption
+Modern encryption depends not upon secret algorithms, but upon "keys": encryption and decryption require a known algorithm s well as a number called a "key"
 
+- A key is used in the algorithm in order to encrypt
+- Decryption with the correct key is easy, without it is *hard*
+*** Symmetric key encryption
+
+#+name: symmetric-key-encryption
+#+begin_src ditaa :file plots/symmetric-key-encryption.png :cmdline -r -S -o :tangle no
++--------+   +-----+    +---------+    +-----+    +--------+
+|cGRE {d}|   |cF96 |    |c8EE     |    |cF96 |    |cGRE {d}|
+|Original|---+ key +--->+Scrambled|----+ key +--->|Original|
+|  data  |   |     |    |  data{d}|    |     |    |  data  |
++--------+   +-----+    +---------+    +-----+    +--------+
+#+end_src
+
+#+results: symmetric-key-encryption
+[[file:plots/symmetric-key-encryption.png]]
+
+#+begin_src bash :results silent :exports none :eval no
+# convert plots/symmetric-key-encryption.png -transparent white plots/symmetric-key-encryption.png
+#+end_src
+
+*** Public key encryption
+**** Encrypt
+#+name: public-key-encryption
+#+begin_src ditaa :file plots/public-key-encryption.png :cmdline -r -S -o :tangle no
++--------+   +------+    +---------+   +-------+    +--------+
+|cGRE {d}|   |cF96  |    |c8EE     |   |cEDA   |    |cGRE {d}|
+|Original|---+Public+--->+Scrambled|---+Private+--->|Original|
+|  data  |   | key  |    |  data{d}|   | key   |    |  data  |
++--------+   +------+    +---------+   +-----+-+    +--------+
+#+end_src
+
+#+results: public-key-encryption
+[[file:plots/public-key-encryption.png]]
+
+
+**** Sign
+#+name: public-key-sign
+#+begin_src ditaa :file plots/public-key-sign.png :cmdline -r -S -o :tangle no
++--------+   +-------+    +---------+   +------+    +---------+
+|cGRE {d}|   |cEDA   |    | cGRE {d}|   |cF96  |    |cBLU     |
+|Original|---+Private+--->+  Data + |---+Public+--->|  Good   |
+|  data  |   | key   |    |signature|   | key  |    |signature|
++--------+   +-------+    +---------+   +------+    +---------+
+#+end_src
+
+#+results: public-key-sign
+[[file:plots/public-key-sign.png]]
+
+
+*** Advantages of public key encryption
+You never need to share a private key
