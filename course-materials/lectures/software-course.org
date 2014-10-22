@@ -6,7 +6,7 @@
 :EXPORT_FILE_NAME: 01-text-editors.pdf
 :END:
 ** Why plain text?
-*** Our main goals as scientists
+*** Our main goal as scientists
 To make our research as reproducible and visible as possible
 \pause
 **** This entails:
@@ -100,6 +100,7 @@ And some other things you did not know you wanted: TODOs and outlining modes, ex
 - *Emacs* My favorite.  Runs on everything, super powerful.
 - *Vim* The "other editor"
 - *atom*. By the github folks: https://atom.io/. New kid on the block
+- *RStudio* For R code but also reasonable for markdown editing
 **** Windows:
 - *notepad++*. Lightweight editor. Can syntax highlight R code
 **** Mac
@@ -108,7 +109,6 @@ And some other things you did not know you wanted: TODOs and outlining modes, ex
 *** Some non-free editors
 - SublimeText (all platforms)
 - TextWrangler and BBEdit (Mac)
-
 ** Emacs
 *** Emacs
 One editor to rule them all.
@@ -132,6 +132,9 @@ One editor to rule them all.
 [[file:images/emacs-schwilk-start.png]]
 *** What you'll see if you use my student starter
 [[file:images/emacs-student-starter-start.png]]
+*** A quick note on terminology
+
+Emacs was first written before modern window managers existed (before MS Windows 3.1 even!). So it uses its own terminology for a few things.
 *** Frames, windows and buffers
 - Frame :: What we call a "window" on a modern operating system. One instance can control multiple frames. Try =File -> New Frame=
 - Window :: What we would call a "panel." A subdivided part of an Emacs "frame". A way to view multiple buffers at once (eg R code and R console). Try =File -> Split Window=
@@ -248,8 +251,7 @@ git clone https://github.com/schwilklab/emacs-starter.git .emacs.d
 Note that some things in my configuration are different from the documentation you will find online:
 - Uses windows cut-copy-paste keys (*cua-mode*).
 - A dark color theme ("schwilk" theme under options...customize emacs...custom themes)
-- IDE for R (shift-enter starts an R session, *ESS*
-- Basic support for org-mode (outline files, *org-mode*)
+- C-x g for quick access to git interface "magit"
 *** Emacs escape hatch
 
 \huge
@@ -447,8 +449,8 @@ $ D_q = \frac{1}{\sqrt[q-1]{\sum_{i=1}^R{p_{i} p_{i}^{q-1}}}}
 
 #+results: latex-math2
 #+BEGIN_LaTeX
-In ecology, true species diversity is:
-$ D_q = \frac{1}{\sqrt[q-1]{\sum_{=i=1}^R{p_{i} p_{i}^{q-1}} } }
+In ecology, "true" species diversity is: 
+$ D_q = \frac{1}{\sqrt[q-1]{\sum_{i=1}^R{p_{i} p_{i}^{q-1}}}}
 #+END_LaTeX
 
 ** Managing references
@@ -532,7 +534,10 @@ Figure from Kieran Healy: http://kieranhealy.org/resources/
 
  #+ATTR_LATEX: :width \textwidth
 [[file:images/Healy-workflow-wide.png]]
-
+*** RMarkdown in RStudio
+See http://rmarkdown.rstudio.com/
+#+ATTR_LATEX: :width .75\textwidth
+[[file:images/markdownChunk.png]]
 * Emacs: R and reproducible research
 :PROPERTIES:
 :EXPORT_FILE_NAME: 03-emacs-R.pdf
