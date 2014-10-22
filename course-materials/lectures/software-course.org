@@ -449,7 +449,7 @@ $ D_q = \frac{1}{\sqrt[q-1]{\sum_{i=1}^R{p_{i} p_{i}^{q-1}}}}
 
 #+results: latex-math2
 #+BEGIN_LaTeX
-In ecology, "true" species diversity is: 
+In ecology, "true" species diversity is:
 $ D_q = \frac{1}{\sqrt[q-1]{\sum_{i=1}^R{p_{i} p_{i}^{q-1}}}}
 #+END_LaTeX
 
@@ -807,25 +807,24 @@ computers-network.md  electrolyte-leakage.md   lab-business.md            stem-s
 [[file:plots/git-repo-diagram.png]]
 #+END_LaTeX
 
-#+ATTR_LaTeX: :width .6\textwidth
+#+ATTR_LaTeX: :width .8\textwidth
 [[file:plots/git-repo-diagram.png]]
 *** git log
-#+begin_src bash :results output :exports both
+#+begin_src bash :eval no :exports code
 git log --pretty=oneline --abbrev-commit -10
 #+end_src
 
-#+results:
 #+begin_example
+9a391ef Add Rstudio markdown example
+0af188a Add slides to encryption lecture
+87ba767 Edits and additions to plain text lecture
+bc7b266 Add slides and images to git lecture
 038146d Add "plots" subdir to lectures
 237cebe Add slides to version control (git) lecture
 91476e4 Add examples to markup lecture
 b1b66ab Add \usepackage{booktabs} to style files
 ee949cd Add and expand lectures
 e18d611 Add content to lecture on Emacs
-366772c Add background to ASCII code chart figure
-e3de90e Add license text to README
-1c0e92f Add text editing lecture
-442f279 Add .gitignores
 #+end_example
 *** git diff
 - =git diff= :: difference between working directory and index (staging area)
@@ -844,6 +843,7 @@ git branch
 
 #+results:
 : * master
+:   new-feature
 
 **** Create
 #+begin_example
@@ -1042,4 +1042,30 @@ Modern encryption depends not upon secret algorithms, but upon "keys": encryptio
 
 
 *** Advantages of public key encryption
-You never need to share a private key
+- You never need to share a private key
+- You may need to worry about key "signing", authentication: is the key you think is Joe's public key really his?
+** SSH
+*** SSH: Secure Shell 
+- standard public key encryption for remote shell access across networks
+- an be used to connect to remote machines, copy files, sync files, even forward ports securely.
+- Standard on Unix and Linux
+- One windows, use PuTTY (http://www.chiark.greenend.org.uk/~sgtatham/putty/)
+- On Mac and Windows, the GitHub client uses ssh internally for connecting to GitHub
+
+*** Check for ssh keys
+
+#+begin_src bash :eval no :exports code
+ls -al ~/.ssh
+# Lists the files in your .ssh directory, if they exist
+#+end_src
+
+*** Generating an ssh key pair
+
+Create a new ssh key using the provided email
+#+begin_src bash :eval no :exports code
+ssh-keygen -t rsa -C "your_email@example.com"
+# Generating public/private rsa key pair.
+# Enter file in which to save the key (/your_home_path/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase): [Type a passphrase]
+# Enter same passphrase again: [Type passphrase again]
+#+end_src 
