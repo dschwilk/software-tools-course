@@ -1,5 +1,5 @@
 #+SETUPFILE: ../styles/SETUP_l2_slides.org
-#+TITLE: Software Tools:: Lectures
+#+TITLE: Software Tools: Lectures
 #+AUTHOR: Dylan Schwilk
 * Plain text and Emacs
 :PROPERTIES:
@@ -547,6 +547,8 @@ See http://rmarkdown.rstudio.com/
 - Emacs knows about R syntax
 - Use shift-enter to start up R (or =M-x R=)
 - Shift-enter sends one line of code to R, =C-c M-r= sends the region
+- Default in ESS is C-enter, but that conflicts with CUA-mode which is why my starter package uses shift-enter
+
 #+ATTR_LaTeX: :width \textwidth
 [[file:images/ess-example.png]]
 *** Moving around
@@ -653,6 +655,26 @@ see http://git-scm.com/book/
 [[file:images/distributed-vc.png]]
 
 ** git
+*** Installing
+**** On Linux:
+#+begin_src bash eval:no :exports code
+apt-get install git
+#+end_src
+
+#+results:
+\pause
+**** On Mac:
+http://www.macports.org
+\pause
+**** On windows:
+- Use =msysGit=: http://msysgit.github.io
+- See http://guides.beanstalkapp.com/version-control/git-on-windows.html
+*** Installing: alternative
+On Mac and Windows:
+**** The GitHub app (make sure to install command line tools):
+- https://mac.github.com/
+- https://windows.github.com/
+
 *** Getting started
 
 #+begin_src bash :eval no
@@ -831,6 +853,9 @@ e18d611 Add content to lecture on Emacs
 - =git diff --staged= :: difference between index and last commit
 
 With right options, diff can show changes between any two commits, any two files, etc.
+*** git diff example
+[[file:images/github-diff-example.png]]
+
 ** Working with branches
 *** Branches
 A branch represents an independent line of development.
@@ -961,7 +986,7 @@ This works if none else has pushed changes to that remote since you last pulled.
 
 ** Advanced uses
 
-*** stage on portions of change
+*** stage only portions of change
 #+begin_src bash :eval no
 git add -p
 #+end_src
