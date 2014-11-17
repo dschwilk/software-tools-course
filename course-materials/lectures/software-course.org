@@ -657,7 +657,7 @@ see http://git-scm.com/book/
 ** git
 *** Installing
 **** On Linux:
-#+begin_src bash eval:no :exports code
+#+begin_src sh eval:no :exports code
 apt-get install git
 #+end_src
 
@@ -677,7 +677,7 @@ On Mac and Windows:
 
 *** Getting started
 
-#+begin_src bash :eval no
+#+begin_src sh :eval no
 git config --global user.name "Dylan Schwilk"
 git config --global user.email "dylan@schwilk.org"
 #+end_src
@@ -685,7 +685,7 @@ git config --global user.email "dylan@schwilk.org"
 *** Getting a "repo" (repository)
 
 Move to empty directory
-#+begin_src bash :eval no
+#+begin_src sh :eval no
 git init
 touch README.md
 #+end_src
@@ -721,7 +721,7 @@ Hidden directory called =.git=
 #+end_example
 *** Checking status
 
-#+begin_src bash :eval no
+#+begin_src sh :eval no
 git status
 #+end_src
 
@@ -756,7 +756,7 @@ nothing added to commit but untracked files present (use "git add" to track)
  - git commit
 *** staging files
 
-#+begin_src bash :eval no
+#+begin_src sh :eval no
 git add .
 git status
 #+end_src
@@ -772,7 +772,7 @@ Changes to be committed:
         new file:   README.md
 #+end_example
 *** Committing changes
-#+begin_src bash :eval no
+#+begin_src sh :eval no
 git commit -m "initial commit"
 git status
 #+end_src
@@ -789,7 +789,7 @@ A commit is a snapshot taken from the index (staging area) *not from the working
 
 *** Clone repo
 \tiny
-#+begin_src bash :eval no
+#+begin_src sh :eval no
 git clone https://github.com/schwilklab/protocols.git
 cd protocols
 ls
@@ -832,7 +832,7 @@ computers-network.md  electrolyte-leakage.md   lab-business.md            stem-s
 #+ATTR_LaTeX: :width .8\textwidth
 [[file:plots/git-repo-diagram.png]]
 *** git log
-#+begin_src bash :eval no :exports code
+#+begin_src sh :eval no :exports code
 git log --pretty=oneline --abbrev-commit -10
 #+end_src
 
@@ -854,6 +854,7 @@ e18d611 Add content to lecture on Emacs
 
 With right options, diff can show changes between any two commits, any two files, etc.
 *** git diff example
+#+ATTR_LaTeX: :width \textwidth
 [[file:images/github-diff-example.png]]
 
 ** Working with branches
@@ -862,13 +863,14 @@ A branch represents an independent line of development.
 
 *** Show and create branches
 **** Show
-#+begin_src bash :results output
+#+begin_src sh :eval no :exports code
 git branch
 #+end_src
 
-#+results:
-: * master
-:   new-feature
+#+begin_example
+ * master
+   new-feature
+#+end_example
 
 **** Create
 #+begin_example
@@ -906,7 +908,7 @@ git merge <branch>
 [[file:images/git-merge-3w.png]]
 *** Example fast-foward merge
 
-#+begin_src bash :eval no
+#+begin_src sh :eval no
 # Start a new feature
 git checkout -b new-feature master
 
@@ -940,7 +942,7 @@ We use GitHub for hosting, so most of of your local repos will be associated wit
 
 *** Working with remotes
 When you clone from a remote, git remembers and calls that remote "origin". You can look at .git/config or, better use git commands to view:
-#+begin_src bash :results output :exports both
+#+begin_src sh :results output :exports both
 git remote -v
 #+end_src
 
@@ -950,13 +952,13 @@ git remote -v
 
 *** Adding a remote
 If you need to add a remote to an existing repository:
-#+begin_src bash :eval no
+#+begin_src sh :eval no
 git remote add rem2 git@github.com:dschwilk/software-tools-course.git
 #+end_src
 
 *** Fetching and pulling
 **** fetch
-#+begin_src bash :eval no
+#+begin_src sh :eval no
 git fetch origin
 git fetch
 #+end_src
@@ -966,7 +968,7 @@ This pulls the data to your local repository but doe not merge it.  It just mean
 \pause
 
 **** pull
-#+begin_src bash :eval no
+#+begin_src sh :eval no
 git pull
 #+end_src
 
@@ -987,7 +989,7 @@ This works if none else has pushed changes to that remote since you last pulled.
 ** Advanced uses
 
 *** stage only portions of change
-#+begin_src bash :eval no
+#+begin_src sh :eval no
 git add -p
 #+end_src
 
@@ -1033,8 +1035,9 @@ Modern encryption depends not upon secret algorithms, but upon "keys": encryptio
 #+results: symmetric-key-encryption
 [[file:plots/symmetric-key-encryption.png]]
 
-#+begin_src bash :results silent :exports none :eval no
-# convert plots/symmetric-key-encryption.png -transparent white plots/symmetric-key-encryption.png
+#+begin_src sh silent :exports code :eval no
+# convert plots/symmetric-key-encryption.png -transparent white
+plots/symmetric-key-encryption.png
 #+end_src
 
 *** Public key encryption
