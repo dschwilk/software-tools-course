@@ -1,7 +1,7 @@
 #+SETUPFILE: ../styles/SETUP_l2_slides.org
 #+TITLE: Software Tools: Lectures
 #+AUTHOR: Dylan Schwilk
-* Plain text and Emacs
+* Plain text and text editors
 :PROPERTIES:
 :EXPORT_FILE_NAME: 01-text-editors.pdf
 :END:
@@ -109,168 +109,12 @@ And some other things you did not know you wanted: TODOs and outlining modes, ex
 *** Some non-free editors
 - SublimeText (all platforms)
 - TextWrangler and BBEdit (Mac)
-** Emacs
-*** Emacs
-One editor to rule them all.
-*** Why use Emacs? Availability
-- All platforms, operating systems
-- Will Always Exist (cue music)
-- Open source and free
-*** Why use Emacs? Best tools
-- Emacs has "major modes" for most computer languages and types of files
-- Powerful text management tools:
-  - Compare (=diff=) documents or buffers
-  - Regular expressions
-  - Can deal with rectangular text (columns, tables)
-- Can handle very large files
-** Basics
-*** Start Emacs
-[[file:images/emacs-simple-start.png]]
-
-1: Menus, 2: Toolbar, 3: Buffer, 4: Mode line (status bar), 5: Mini buffer
-*** What I see:
-[[file:images/emacs-schwilk-start.png]]
-*** What you'll see if you use my student starter
-[[file:images/emacs-student-starter-start.png]]
-*** A quick note on terminology
-
-Emacs was first written before modern window managers existed (before MS Windows 3.1 even!). So it uses its own terminology for a few things.
-*** Frames, windows and buffers
-- Frame :: What we call a "window" on a modern operating system. One instance can control multiple frames. Try =File -> New Frame=
-- Window :: What we would call a "panel." A subdivided part of an Emacs "frame". A way to view multiple buffers at once (eg R code and R console). Try =File -> Split Window=
-- Buffer :: A name associated with the contents of a window. Can be the contents of a file, a process, an interpreter. Try =Buffers -> ...=
-*** Emacs "Major Modes"
-- Emacs can customize itself based on the language you are working in
-- R code will look different (font colors, comments etc) from Python from Markdown.
-- Emacs will guess the mode from the file extension (eg =.R=), or you can specify mode: Type Alt-x, release, then type valid mode name
-*** Emacs key board commands
-**** Emacs was created in the days before
-- Mice
-- Windowing desktop environments
-- Microsoft windows or Macs existed.
-
-\pause
-**** Everything can be done from keyboard
-- C :: Control key
-- S :: Shift key
-- M :: Meta key (usually "Alt")
-
-*** Keyboard nomenclature
-
-- "C-x g" :: hold Control while typing "x", release, then type "g"
-- "M-x"  :: Hold down Alt then hit "x".  This brings you to mini-buffer to type longer commands
-- "C-c C-c" :: Hold down Control while typing "c" then do that again.
-
-*** That seems complicated
-So you don't have to use those keys if you don't want to!
-
-- The keyboard commands are featured in most Emacs tutorials. And that may scare folks away.
-- I have a "cheat sheet" of commands taped on the wall next to my computer
-- But you can always use the pull down menus and still do more than with any other editor.
-*** Just use the menus and keys you are used to
-**** Select all:
-=Edit -> Select All= vs "C-x h"
-\pause
-**** End of buffer:
-"page down" key a few times vs "M->" (Alt, Shift, greater than)
-\pause
-**** Moving by character:
-arrow keys, "home", "end" vs "C-f", "C-b", "C-n", "C-p", "C-a", "C-e"
-
-*** One problem:
-**** You are probably used to MS or Mac cut-copy-paste
-| keystroke | result |
-|-----------+--------|
-| C-x       | cut    |
-| C-c       | copy   |
-| C-v       | paste  |
-| C-z       | undo   |
-
-\pause
-**** But Emacs defaults:
-| keystroke | result         |
-|-----------+----------------|
-| C-w       | cut ("wipe")   |
-| M-w       | copy           |
-| C-y       | paste ("yank") |
-| C-/       | undo           |
-
-*** Easily fixed
-Turn on "CUA mode", multiple ways:
-
-- =Options -> CUA=
-- "M-x cua-mode"
-- Add following to emacs startup:  =(cua-mode t)=
-
-Watch out: This overrides some basic Emacs keyboard functionality.  For example, you must turn this off for the built-in Emacs tutorial!
-*** Some shortcuts you *should* use
-
-- M-x :: execute command in minibufer --- this gives you access to every lisp function
-- C-g :: Quit.  Exits a function, exits mini-buffer. Useful if you get stuck
-- C-s :: Forward search.  I use this very frequently
-- M-% :: Query replace
-- C-M-% :: Regular expression query replace
-- M-q :: Rewrap paragraph (does right thing for code comments)
-- M-; :: Comment or uncomment selected region; knows which comment character to use
-
-*** More on =M-x=
-- "M-x" gets the mini-buffer ready for a command
-- Tab completeion works, so just type first few letters
-
-\pause
-***** Example: indent-region
-- Highlight text ("select region")
-- Type "M-x indent-region"
-- And emacs even reminds you of shortcut.
-** Installing
-*** Installing Emacs
-**** On linux
-~> sudo apt-get install emacs24~
-**** On Mac
-- OSX: aquamacs: http://aquamacs.org/
-*** Install Emacs on Windows
-- go to http://ftp.gnu.org/gnu/windows/emacs/
-- Download emacs by right-clicking on either emacs-xx.x-bin-i386.tar.gz or emacs-xx.x-fullbin-i386.tar.gz.
-- Extract to zip file to ~C:\Program Files\emacs~
-- Add shortcuts to the executable, set the $HOME environment variable(My computer ... Properties ... Advanced
-- You will need to learn about environment variables so that emacs can find R, etc.
-*** Customizing Emacs
-- Emacs is highly customizable.  On startup it reads an initialization file (~/.emacs.d/init.el)
-- I have written a set of initialization files for you: https://github.com/schwilklab/emacs-starter
-*** Installing my emacs student starter
-- go to https://github.com/schwilklab/emacs-starter
-- read the README.md file
-- Download to your .emacs.d directory (=~/.emacs.d=, or =$HOME\.emacs.d\=)
-- Learn what I mean by "~" and ~$HOME~ !
-*** Set up on linux
-#+begin_src bash :eval no
-cd ~
-git clone https://github.com/schwilklab/emacs-starter.git .emacs.d
-#+end_src
-*** Some features and departures from defaults
-Note that some things in my configuration are different from the documentation you will find online:
-- Uses windows cut-copy-paste keys (*cua-mode*).
-- A dark color theme ("schwilk" theme under options...customize emacs...custom themes)
-- C-x g for quick access to git interface "magit"
-*** Emacs escape hatch
-
-\huge
-=C-g=
-*** A poster for learning emacs
-http://sachachua.com/blog/2013/05/how-to-learn-emacs-a-hand-drawn-one-pager-for-beginners/
-#+ATTR_LaTeX: :width 0.9\textwidth
-[[file:images/sacha_chua-emacs.png]]
-*** Basic commands                                               :noexport:
-| Visiting (opening) and saving files:     | C-x C-f and C-x C-s   |
-| Switching between buffers:               | C-x b and C-x C-b     |
-| To set the region by keyboard:           | C-SPC                 |
-| Killing (cutting) and yanking (pasting): | C-w, C-k, C-y, M-y    |
-| Searching forwards and backwards:        | C-s, C-r              |
-| Invoking commands by name:               | M-x                   |
-| Undo:                                    | C-/                   |
-| Canceling half-entered commands:         | C-g                   |
-| Getting help                             | C-h (+ m, k, f, or a) |
-| Quitting Emacs:                          | C-x C-c               |
+** Text editors
+*** Text editor wars
+*** Trade offs
+- Familiarity now vs long term power
+- Ease of setup vs ease of use
+- Operating systems (what is easy on Linux can be set up on mac usually easily and can be trickier to get set up on windows).
 * Markup languages
 :PROPERTIES:
 :EXPORT_FILE_NAME: 02-markup-languages.pdf
@@ -538,44 +382,42 @@ Figure from Kieran Healy: http://kieranhealy.org/resources/
 See http://rmarkdown.rstudio.com/
 #+ATTR_LATEX: :width .75\textwidth
 [[file:images/markdownChunk.png]]
-* Emacs: R and reproducible research
+* R and reproducible research
 :PROPERTIES:
-:EXPORT_FILE_NAME: 03-emacs-R.pdf
+:EXPORT_FILE_NAME: 03-reproducible-research.pdf
 :END:
-** R in Emacs
-*** Work in R
-- Emacs knows about R syntax
-- Use shift-enter to start up R (or =M-x R=)
-- Shift-enter sends one line of code to R, =C-c M-r= sends the region
-- Default in ESS is C-enter, but that conflicts with CUA-mode which is why my starter package uses shift-enter
-
+** RStudio
+*** RStudio
 #+ATTR_LaTeX: :width \textwidth
-[[file:images/ess-example.png]]
-*** Moving around
-- C-M-a :: ess-beginning-of-function
-- C-M-e :: ess-end-of-function
-*** Comments and indentation
-- comment-region (C-c ;)
-- M-x indent-region
-
-Indenting should just work as you type.
-*** What can I do in R?
-- Run commands as normal.
-- TAB Completion of functions, objects, filenames.
-- At the prompt, recall history:
-  - keybinding function
-  - M-p (or C-up) previous input
-  - M-n (or C-down) next input
-  - M-r comint-previous-matching-input
-
-And look at ESS menu
+[[file:images/rstudio-screenshot.jpg]]
+*** RStudio: keyboard shortcuts
+**** In editor
+- Command/ctrl + enter: send code to console
+- Ctrl + 2: move cursor to console
+**** In console
+- Up arrow: retrieve previous command
+- Ctrl + up arrow: search commands
+- Ctrl + 1: move cursor to editor
 ** Reproducible research
-*** Literate programming and reproducible research
-Combine text and code
+*** Reproducible research
 
-- knitr :: http://yihui.name/knitr/. R package. Mix text and code and "knit" to output.  Can work with LaTeX (*.rnw files) and with RMarkdown (*.Rmd). Can work with emacs or with RStudio
+- The original data (and original computer code) can be analyzed by an independent investigator to obtain the same results of the original study.
+- My own goal: all analyses are scripted, nothing done "by hand": tables, figures, parameter values in the manuscript.  And the scripts are well documented.
+
+*** Why make research reproducible?
+- For your future self who is much less intelligent than your present genius self
+- For your collaborators and for others to build upon
+- Easily change documents when assumptions or data change
+- Preserve context on why analyses were performed in certain way
+*** Examples
+- Fire Fire Surrogate study 
+- iButton data
+*** Literate programming
+Can aid in reproducible research: Simply combine text and code
+
+- Plain R script :: Simplest.  This is how I teach my graduate programming course. Encourage use of comments and require that script run from top to bottom without error. In Rstudio, one can compile this to an RMarkdown file  (Compile Notebook command).
+- knitr :: http://yihui.name/knitr/. R package. Mix text and code and "knit" to output.  Can work with LaTeX (rnw files) and with RMarkdown (Rmd). Can work with emacs or with RStudio
 - org-mode :: My favorite (but more emacs-specific). Can do a ton of stuff, including interspersing source code blocks, code output (including graphs) and text.
-
 *** RMarkdown and knitr
 =knitr= is an R package that can interpret .rnw files (LaTeX) or RMarkdown files (.Rmd) with R code blocks and "knit" them into LaTeX or markdown (.md) files that can be processed to html, pdf, etc (eg with pandoc)
 *** RMarkdown example:
@@ -599,31 +441,16 @@ head(mpg)
 *** Result:
 #+ATTR_LaTeX: :width 0.65\textwidth
 [[file:images/rmarkdown-example.png]]
-*** Text and code in org-mode
-TODO
-* Emacs: org-mode
-:PROPERTIES:
-:EXPORT_FILE_NAME: 05-org-mode.pdf
-:END:
-** What is org-mode?
-*** What is org-mode?
-"Org is a mode for keeping notes, maintaining TODO lists, and doing project planning with a fast and effective plain-text system. " - [[http://orgmode.org/manual/Summary.html]]
-**** org-mode is
-- an outline extension with visibility cycling and structure editing
-- an plain text system and table editor for taking structured notes
-- a TODO list editor
-- a full agenda and planner with deadlines and work scheduling
-- a hypertext system, with HTML and LaTeX export
-- an environment for literate programming with code blocks an manipulation of code outputs
-*** org-mode outlines
-Folding outlines and lists:
+*** Best practices 
 
-[[file:images/org-mode-example1.png]]
-*** org-mode examples
-- Outlines
-- Adding tasks
-- Agenda view
-- Exporting to HTML or LaTeX
+Reproducible research in R (see  Yihui Xie's /Dynamic Documents with R and knitr/)
+
+- Use relative, not absolute, file paths and keep a whole project in one directory whenever possible
+- Don't change the working directory
+- Compile your reports in a clean R session to test that they really run (existing R objects gotcha)
+- Avoid any commands needing human interaction, and avoid relying on environment variables outside the code; the whole script should be automated and self-contained
+- Include instructions on running the document for your collaborators (or future self)
+
 * Version Control
 :PROPERTIES:
 :EXPORT_FILE_NAME: 05-version-control.pdf
@@ -994,7 +821,221 @@ git add -p
 #+end_src
 
 Interactively add changed "hunks".
-* ssh and rsync
+
+* Emacs
+:PROPERTIES:
+:EXPORT_FILE_NAME: 05-emacs.pdf
+:END:
+** Emacs
+*** Emacs
+My favorite editor.
+*** Why use Emacs? Availability
+- All platforms, operating systems
+- Will Always Exist (cue music)
+- Open source and free
+*** Why use Emacs? Best tools
+- Emacs has "major modes" for most computer languages and types of files
+  this means that time spent learning how to use emacs pays off for pretty much everything I do on a computer.
+- Powerful text management tools:
+  - Compare (=diff=) documents or buffers
+  - Regular expressions
+  - Can deal with rectangular text (columns, tables)
+- Can handle very large files
+** Basics
+*** Start Emacs
+[[file:images/emacs-simple-start.png]]
+
+1: Menus, 2: Toolbar, 3: Buffer, 4: Mode line (status bar), 5: Mini buffer
+*** What I see:
+[[file:images/emacs-schwilk-start.png]]
+*** What you'll see if you use my student starter
+[[file:images/emacs-student-starter-start.png]]
+*** A quick note on terminology
+
+Emacs was first written before modern window managers existed (before MS Windows 3.1 even!). So it uses its own terminology for a few things.
+*** Frames, windows and buffers
+- Frame :: What we call a "window" on a modern operating system. One instance can control multiple frames. Try =File -> New Frame=
+- Window :: What we would call a "panel." A subdivided part of an Emacs "frame". A way to view multiple buffers at once (eg R code and R console). Try =File -> Split Window=
+- Buffer :: A name associated with the contents of a window. Can be the contents of a file, a process, an interpreter. Try =Buffers -> ...=
+*** Emacs "Major Modes"
+- Emacs can customize itself based on the language you are working in
+- R code will look different (font colors, comments etc) from Python from Markdown.
+- Emacs will guess the mode from the file extension (eg =.R=), or you can specify mode: Type Alt-x, release, then type valid mode name
+*** Emacs key board commands
+**** Emacs was created in the days before
+- Mice
+- Windowing desktop environments
+- Microsoft windows or Macs existed.
+
+\pause
+**** Everything can be done from keyboard
+- C :: Control key
+- S :: Shift key
+- M :: Meta key (usually "Alt")
+
+*** Keyboard nomenclature
+
+- "C-x g" :: hold Control while typing "x", release, then type "g"
+- "M-x"  :: Hold down Alt then hit "x".  This brings you to mini-buffer to type longer commands
+- "C-c C-c" :: Hold down Control while typing "c" then do that again.
+
+*** That seems complicated
+So you don't have to use those keys if you don't want to!
+
+- The keyboard commands are featured in most Emacs tutorials. And that may scare folks away.
+- I have a "cheat sheet" of commands taped on the wall next to my computer
+- But you can always use the pull down menus and still do more than with any other editor.
+*** Just use the menus and keys you are used to
+**** Select all:
+=Edit -> Select All= vs "C-x h"
+\pause
+**** End of buffer:
+"page down" key a few times vs "M->" (Alt, Shift, greater than)
+\pause
+**** Moving by character:
+arrow keys, "home", "end" vs "C-f", "C-b", "C-n", "C-p", "C-a", "C-e"
+
+*** One problem:
+**** You are probably used to MS or Mac cut-copy-paste
+| keystroke | result |
+|-----------+--------|
+| C-x       | cut    |
+| C-c       | copy   |
+| C-v       | paste  |
+| C-z       | undo   |
+
+\pause
+**** But Emacs defaults:
+| keystroke | result         |
+|-----------+----------------|
+| C-w       | cut ("wipe")   |
+| M-w       | copy           |
+| C-y       | paste ("yank") |
+| C-/       | undo           |
+
+*** Easily fixed
+Turn on "CUA mode", multiple ways:
+
+- =Options -> CUA=
+- "M-x cua-mode"
+- Add following to emacs startup:  =(cua-mode t)=
+
+Watch out: This overrides some basic Emacs keyboard functionality.  For example, you must turn this off for the built-in Emacs tutorial!
+*** Some shortcuts you *should* use
+
+- M-x :: execute command in minibufer --- this gives you access to every lisp function
+- C-g :: Quit.  Exits a function, exits mini-buffer. Useful if you get stuck
+- C-s :: Forward search.  I use this very frequently
+- M-% :: Query replace
+- C-M-% :: Regular expression query replace
+- M-q :: Rewrap paragraph (does right thing for code comments)
+- M-; :: Comment or uncomment selected region; knows which comment character to use
+
+*** More on =M-x=
+- "M-x" gets the mini-buffer ready for a command
+- Tab completeion works, so just type first few letters
+
+\pause
+***** Example: indent-region
+- Highlight text ("select region")
+- Type "M-x indent-region"
+- And emacs even reminds you of shortcut.
+** Installing
+*** Installing Emacs
+**** On linux
+~> sudo apt-get install emacs24~
+**** On Mac
+- OSX: aquamacs: http://aquamacs.org/
+*** Install Emacs on Windows
+- go to http://ftp.gnu.org/gnu/windows/emacs/
+- Download emacs by right-clicking on either emacs-xx.x-bin-i386.tar.gz or emacs-xx.x-fullbin-i386.tar.gz.
+- Extract to zip file to ~C:\Program Files\emacs~
+- Add shortcuts to the executable, set the $HOME environment variable(My computer ... Properties ... Advanced
+- You will need to learn about environment variables so that emacs can find R, etc.
+*** Customizing Emacs
+- Emacs is highly customizable.  On startup it reads an initialization file (~/.emacs.d/init.el)
+- I have written a set of initialization files for you: https://github.com/schwilklab/emacs-starter
+*** Installing my emacs student starter
+- go to https://github.com/schwilklab/emacs-starter
+- read the README.md file
+- Download to your .emacs.d directory (=~/.emacs.d=, or =$HOME\.emacs.d\=)
+- Learn what I mean by "~" and ~$HOME~ !
+*** Set up on linux
+#+begin_src bash :eval no
+cd ~
+git clone https://github.com/schwilklab/emacs-starter.git .emacs.d
+#+end_src
+*** Some features and departures from defaults
+Note that some things in my configuration are different from the documentation you will find online:
+- Uses windows cut-copy-paste keys (*cua-mode*).
+- A dark color theme ("schwilk" theme under options...customize emacs...custom themes)
+- C-x g for quick access to git interface "magit"
+*** Emacs escape hatch
+
+\huge
+=C-g=
+*** A poster for learning emacs
+http://sachachua.com/blog/2013/05/how-to-learn-emacs-a-hand-drawn-one-pager-for-beginners/
+#+ATTR_LaTeX: :width 0.9\textwidth
+[[file:images/sacha_chua-emacs.png]]
+*** Basic commands                                               :noexport:
+| Visiting (opening) and saving files:     | C-x C-f and C-x C-s   |
+| Switching between buffers:               | C-x b and C-x C-b     |
+| To set the region by keyboard:           | C-SPC                 |
+| Killing (cutting) and yanking (pasting): | C-w, C-k, C-y, M-y    |
+| Searching forwards and backwards:        | C-s, C-r              |
+| Invoking commands by name:               | M-x                   |
+| Undo:                                    | C-/                   |
+| Canceling half-entered commands:         | C-g                   |
+| Getting help                             | C-h (+ m, k, f, or a) |
+| Quitting Emacs:                          | C-x C-c               |
+** R in Emacs
+*** Work in R
+- Emacs knows about R syntax
+- Use shift-enter to start up R (or =M-x R=)
+- Shift-enter sends one line of code to R, =C-c M-r= sends the region
+- Default in ESS is C-enter, but that conflicts with CUA-mode which is why my starter package uses shift-enter
+
+#+ATTR_LaTeX: :width \textwidth
+[[file:images/ess-example.png]]
+*** Moving around
+- C-M-a :: ess-beginning-of-function
+- C-M-e :: ess-end-of-function
+*** Comments and indentation
+- comment-region (C-c ;)
+- M-x indent-region
+
+Indenting should just work as you type.
+*** What can I do in R?
+- Run commands as normal.
+- TAB Completion of functions, objects, filenames.
+- At the prompt, recall history:
+  - keybinding function
+  - M-p (or C-up) previous input
+  - M-n (or C-down) next input
+  - M-r comint-previous-matching-input
+
+And look at ESS menu
+** org-mode
+*** What is org-mode?
+"Org is a mode for keeping notes, maintaining TODO lists, and doing project planning with a fast and effective plain-text system. " - [[http://orgmode.org/manual/Summary.html]]
+**** org-mode is
+- an outline extension with visibility cycling and structure editing
+- an plain text system and table editor for taking structured notes
+- a TODO list editor
+- a full agenda and planner with deadlines and work scheduling
+- a hypertext system, with HTML and LaTeX export
+- an environment for literate programming with code blocks an manipulation of code outputs
+*** org-mode outlines
+Folding outlines and lists:
+
+[[file:images/org-mode-example1.png]]
+*** org-mode examples
+- Outlines
+- Adding tasks
+- Agenda view
+- Exporting to HTML or LaTeX
+* Encryption
 :PROPERTIES:
 :EXPORT_FILE_NAME: 06-encryption.pdf
 :END:
@@ -1074,9 +1115,10 @@ plots/symmetric-key-encryption.png
 - You may need to worry about key "signing", authentication: is the key you think is Joe's public key really his?
 ** SSH
 *** SSH: Secure Shell 
-- standard public key encryption for remote shell access across networks
+- standard public key encryption for remote access across networks
 - an be used to connect to remote machines, copy files, sync files, even forward ports securely.
 - Standard on Unix and Linux
+- ONe can even pipe ("forward") graphical user interfaces over ssh (but can be slow).
 - One windows, use PuTTY (http://www.chiark.greenend.org.uk/~sgtatham/putty/)
 - On Mac and Windows, the GitHub client uses ssh internally for connecting to GitHub
 
@@ -1097,3 +1139,5 @@ ssh-keygen -t rsa -C "your_email@example.com"
 Enter passphrase (empty for no passphrase): [Type a passphrase]
 # Enter same passphrase again: [Type passphrase again]
 #+end_src 
+
+** GPG
